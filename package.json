@@ -1,0 +1,33 @@
+{
+  "name": "TipTap",
+  "version": "0.0.1",
+  "author": {
+    "name": "Erick Sauri",
+    "email": "ericksaurisyl@gmail.com",
+    "url": "https://ericksauri.com"
+  },
+  "contributors": [
+    "Christian Medina"
+  ],
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "erick": "react-native run-ios --device 'Erick'",
+    "ios": "react-native run-ios",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "16.2.0",
+    "react-native": "0.53.3"
+  },
+  "devDependencies": {
+    "babel-jest": "22.4.1",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "22.4.2",
+    "react-test-renderer": "16.2.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

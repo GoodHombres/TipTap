@@ -5,16 +5,18 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#020202',
   },
   welcome: {
     fontSize: 20,
+    fontWeight: 'bold',
     textAlign: 'center',
+    color: '#4cd964',
     margin: 10,
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
+    color: '#fff',
     marginBottom: 5,
   },
 });

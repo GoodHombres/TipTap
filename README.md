@@ -7,8 +7,9 @@ by GoodHombres
 ``` bash
 
 # iOS
-yarn run-ios
+yarn ios
 
 # Android
-yarn run-android
+yarn android
+
 ```

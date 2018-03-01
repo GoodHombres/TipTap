@@ -7,18 +7,18 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
-// Screens
-import Home from './../Home/Home';
+// Views
+import Calculator from './../../views/Calculator/Calculator';
 
 // Routing
 const RootStack = StackNavigator(
   // Route Map
   {
-    Home: { screen: Home },
+    Calculator: { screen: Calculator },
   },
   // Stack Config
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Calculator',
   },
 );
 

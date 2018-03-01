@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { Platform, Text, SafeAreaView } from 'react-native';
 
 import Header from './../../containers/CalculatorHeader/CalculatorHeader';
+import QuickView from './../../containers/CalculatorQuickView/CalculatorQuickView';
 import styles from './Calculator.styles';
 
 const instructions = Platform.select({
@@ -29,6 +30,7 @@ export default class Calculator extends Component<Props> {
 
     this.state = {
       selectedTip: 15,
+      amountEntered: 0,
     };
 
     this.handleSelectTip = this.handleSelectTip.bind(this);
@@ -44,11 +46,11 @@ export default class Calculator extends Component<Props> {
 
     console.log(`Navigate to ${view}`);
     console.log(params);
-    // navigate(view, params);
+    navigate(view, params);
   }
 
   render() {
-    const { selectedTip } = this.state;
+    const { amountEntered, selectedTip } = this.state;
 
     // TODO: Change
     const tipList = [10, 15, 18, 20, 25];
@@ -62,7 +64,9 @@ export default class Calculator extends Component<Props> {
           handleSelectTip={this.handleSelectTip}
           handleSettingsPress={() => this.handleNavigation('Settings')}
         />
-        {/*  */}
+        {/* QuickView */}
+        <QuickView selectedTip={selectedTip} amountEntered={amountEntered} />
+        {/* NumPad */}
         <Text style={styles.welcome}>
           Welcome to TipTap!
         </Text>

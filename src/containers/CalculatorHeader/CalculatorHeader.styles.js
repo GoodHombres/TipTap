@@ -8,7 +8,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 20,
-    // backgroundColor: '#e74c3c',
   },
   tipListContainer: {
     flexDirection: 'row',
@@ -22,5 +21,6 @@ export default StyleSheet.create({
   },
   settingsBtn: {
     padding: 10,
+    paddingRight: 0,
   },
 });

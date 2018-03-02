@@ -3,4 +3,4 @@ import { Image } from 'react-native';
 
 import styles from './Icon.styles';
 
-export default ({ src }) => <Image style={styles.icon} source={src} />;
+export default ({ src, size }) => <Image style={size ? styles[size] : styles.sm} source={src} />;

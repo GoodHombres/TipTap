@@ -14,7 +14,7 @@ import LargeButton from './../../components/LargeButton/LargeButton';
 // Styles
 import styles from './CalculatorNumPad.styles';
 
-export default ({ canClear, keyList, handleKeyPress, handleCameraPress, handleDeletePress, handleClearPress }) => (
+export default ({ canClear, keyList, handleKeyPress, handleDoubleZeroPress, handleCameraPress, handleDeletePress, handleClearPress }) => (
   <View style={styles.container}>
     <View style={styles.row}>
       <View style={styles.keyPadContainer}>
@@ -56,7 +56,7 @@ export default ({ canClear, keyList, handleKeyPress, handleCameraPress, handleDe
         <Icon src={require('./../../assets/icons/camera.png')} />
         </LargeButton>
         <LargeButton style={styles.key} handleOnPress={() => handleKeyPress(0)} >{0}</LargeButton>
-        <LargeButton style={styles.key} disabled />
+        <LargeButton style={styles.key} handleOnPress={() => handleDoubleZeroPress()} >{0}{0}</LargeButton>
       </View>
     </View>
   </View>

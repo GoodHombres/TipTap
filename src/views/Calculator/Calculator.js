@@ -40,6 +40,7 @@ export default class Calculator extends Component<Props> {
     this.handleCameraPress = this.handleCameraPress.bind(this);
     this.handleClearPress = this.handleClearPress.bind(this);
     this.handleDeletePress = this.handleDeletePress.bind(this);
+    this.handleDoubleZeroPress = this.handleDoubleZeroPress.bind(this);
   }
 
   handleSelectTip(tip) {
@@ -63,6 +64,23 @@ export default class Calculator extends Component<Props> {
     if (isNaN(key) || this.state.amountEntered.toString().length >= maxDigits) return;
     
     this.setState({ amountEntered: ( this.state.amountEntered * 10 + key ) });
+  }
+
+  handleDoubleZeroPress() {
+
+    // TODO: Change
+    const maxDigits = 6;
+
+    // Calculate only if number pressed or max digits not reached
+    if (this.state.amountEntered.toString().length >= maxDigits) return;
+
+    // Calculate current digits distance to max allowed
+    const complement = maxDigits - this.state.amountEntered.toString().length;
+
+    // Calculate factor trimmed to max digits allowed
+    const factor = complement < 2 ? 10 : 100; 
+    
+    this.setState({ amountEntered: ( this.state.amountEntered * factor ) });
   }
 
   handleCameraPress() {
@@ -104,6 +122,7 @@ export default class Calculator extends Component<Props> {
           handleDeletePress={this.handleDeletePress}
           handleClearPress={this.handleClearPress}
           handleCameraPress={this.handleCameraPress}
+          handleDoubleZeroPress={this.handleDoubleZeroPress}
           canClear={amountEntered !== 0} />
         <View style={styles.wrapper} >
           <Text style={styles.calculate}>

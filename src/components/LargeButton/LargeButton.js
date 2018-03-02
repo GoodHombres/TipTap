@@ -9,8 +9,6 @@ export default ({ children, style, handleOnPress, isSelected, disabled }) => (
     onPress={handleOnPress}
     disabled={disabled}
   >
-    <Text style={styles.text}>
-      {children}
-    </Text>
+  {children}
   </TouchableOpacity>
 );

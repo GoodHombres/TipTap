@@ -6,9 +6,4 @@ export default StyleSheet.create({
     alignItems: 'center',
     padding: 22,
   },
-  text: {
-    color: '#fff',
-    fontSize: 36,
-    fontWeight: '100',
-  },
 });

@@ -5,19 +5,12 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, Text, SafeAreaView, View } from 'react-native';
+import { Platform, Text, SafeAreaView } from 'react-native';
 
 import Header from './../../containers/CalculatorHeader/CalculatorHeader';
 import QuickView from './../../containers/CalculatorQuickView/CalculatorQuickView';
 import NumPad from './../../containers/CalculatorNumPad/CalculatorNumPad';
 import styles from './Calculator.styles';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
 type Props = {};
 export default class Calculator extends Component<Props> {
@@ -123,12 +116,8 @@ export default class Calculator extends Component<Props> {
           handleClearPress={this.handleClearPress}
           handleCameraPress={this.handleCameraPress}
           handleDoubleZeroPress={this.handleDoubleZeroPress}
+          handleCalculatePress={() => this.handleNavigation(null)}
           canClear={amountEntered !== 0} />
-        <View style={styles.wrapper} >
-          <Text style={styles.calculate}>
-            Calculate
-          </Text>
-        </View>
       </SafeAreaView>
     );
   }

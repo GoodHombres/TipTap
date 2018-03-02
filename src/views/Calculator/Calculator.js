@@ -5,10 +5,11 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, Text, SafeAreaView } from 'react-native';
+import { Platform, Text, SafeAreaView, View } from 'react-native';
 
 import Header from './../../containers/CalculatorHeader/CalculatorHeader';
 import QuickView from './../../containers/CalculatorQuickView/CalculatorQuickView';
+import NumPad from './../../containers/CalculatorNumPad/CalculatorNumPad';
 import styles from './Calculator.styles';
 
 const instructions = Platform.select({
@@ -35,6 +36,10 @@ export default class Calculator extends Component<Props> {
 
     this.handleSelectTip = this.handleSelectTip.bind(this);
     this.handleNavigation = this.handleNavigation.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleCameraPress = this.handleCameraPress.bind(this);
+    this.handleClearPress = this.handleClearPress.bind(this);
+    this.handleDeletePress = this.handleDeletePress.bind(this);
   }
 
   handleSelectTip(tip) {
@@ -47,6 +52,33 @@ export default class Calculator extends Component<Props> {
     console.log(`Navigate to ${view}`);
     console.log(params);
     navigate(view, params);
+  }
+
+  handleKeyPress(key) {
+
+    // TODO: Change
+    const maxDigits = 6;
+
+    // Calculate only if number pressed or max digits not reached
+    if (isNaN(key) || this.state.amountEntered.toString().length >= maxDigits) return;
+    
+    this.setState({ amountEntered: ( this.state.amountEntered * 10 + key ) });
+  }
+
+  handleCameraPress() {
+    
+  }
+
+  handleSettingsPress() {
+    
+  }
+
+  handleClearPress() {
+    this.setState({ amountEntered: 0 });
+  }
+
+  handleDeletePress() {
+    this.setState({ amountEntered: Math.floor(this.state.amountEntered / 10 ) });
   }
 
   render() {
@@ -67,15 +99,17 @@ export default class Calculator extends Component<Props> {
         {/* QuickView */}
         <QuickView selectedTip={selectedTip} amountEntered={amountEntered} />
         {/* NumPad */}
-        <Text style={styles.welcome}>
-          Welcome to TipTap!
-        </Text>
-        <Text style={styles.instructions}>
-        Selected tip is {selectedTip}%!
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+        <NumPad 
+          handleKeyPress={this.handleKeyPress}
+          handleDeletePress={this.handleDeletePress}
+          handleClearPress={this.handleClearPress}
+          handleCameraPress={this.handleCameraPress}
+          canClear={amountEntered !== 0} />
+        <View style={styles.wrapper} >
+          <Text style={styles.calculate}>
+            Calculate
+          </Text>
+        </View>
       </SafeAreaView>
     );
   }

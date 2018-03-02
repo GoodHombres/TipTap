@@ -34,7 +34,7 @@ export default ({ tipList, selectedTip, handleSelectTip, handleSettingsPress }) 
     </View>
     {/* Settings Button */}
     <TouchableOpacity style={styles.settingsBtn} onPress={handleSettingsPress}>
-      <Icon src={require('./../../assets/icons/settings.png')} />
+      <Icon size={'sm'} src={require('./../../assets/icons/settings.png')} />
     </TouchableOpacity>
   </View>
 );

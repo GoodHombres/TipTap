@@ -24,16 +24,20 @@ export default ({ canClear, handleKeyPress, handleCameraPress, handleDeletePress
       <LargeButton style={styles.column} disabled />
       <LargeButton style={styles.column} handleOnPress={() => handleClearPress()} disabled={!canClear} >
       {
-        canClear
-          ? <Icon src={require('./../../assets/icons/clear.png')} />
-          : <Icon src={require('./../../assets/icons/clear-disabled.png')} />
+        <Icon size={'md'} src={
+          canClear
+            ? require('./../../assets/icons/clear.png')
+            : require('./../../assets/icons/clear-disabled.png')
+        } />
       }
       </LargeButton>
       <LargeButton style={styles.column} handleOnPress={handleDeletePress} disabled={!canClear} >
       {
-        canClear
-          ? <Icon src={require('./../../assets/icons/delete.png')} />
-          : <Icon src={require('./../../assets/icons/delete-disabled.png')} />
+        <Icon size={'md'} src={
+          canClear
+            ? require('./../../assets/icons/delete.png')
+            : require('./../../assets/icons/delete-disabled.png')
+        } />
       }
       </LargeButton>
       {
@@ -48,7 +52,7 @@ export default ({ canClear, handleKeyPress, handleCameraPress, handleDeletePress
       }
       {/* Camera Button */}
       <LargeButton style={styles.column} handleOnPress={handleCameraPress} >
-        <Icon src={require('./../../assets/icons/camera.png')} />
+        <Icon size={'md'} src={require('./../../assets/icons/camera.png')} />
       </LargeButton>
 
       {/* Calculate Button */}

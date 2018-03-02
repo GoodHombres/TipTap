@@ -9,23 +9,28 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(246, 247, 249, 0.08)',
   },
-  keyPadContainer: {
+  row: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     width: '100%',
   },
-  key: {
+  column: {
     width: '33.3%',
   },
-  calculateKey: {
+  full: {
     width: '100%',
     paddingTop: 2,
     paddingBottom: 2,
   },
-  calculateText: {
+  numText: {
+    color: '#fff',
+    fontSize: 36,
+    fontWeight: '100',
+  },
+  green: {
     color: '#4cd964',
   },
-  disabledText: {
-    color: 0,
+  gray: {
+    color: '#8e8e93',
   },
 });

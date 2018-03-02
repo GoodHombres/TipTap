@@ -6,16 +6,15 @@ export default StyleSheet.create({
     backgroundColor: '#020202',
     padding: 20,
   },
-  welcome: {
-    fontSize: 20,
-    fontWeight: 'bold',
+
+  wrapper: {
+    backgroundColor: 'rgba(246, 247, 249, 0.08)',
+  },
+  calculate: {
+    fontSize: 36,
+    fontWeight: '100',
     textAlign: 'center',
     color: '#4cd964',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#fff',
-    marginBottom: 5,
+    margin: 2,
   },
 });

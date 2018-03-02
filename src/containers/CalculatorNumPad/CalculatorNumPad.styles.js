@@ -17,4 +17,15 @@ export default StyleSheet.create({
   key: {
     width: '33.3%',
   },
+  calculateKey: {
+    width: '100%',
+    paddingTop: 2,
+    paddingBottom: 2,
+  },
+  calculateText: {
+    color: '#4cd964',
+  },
+  disabledText: {
+    color: 0,
+  },
 });

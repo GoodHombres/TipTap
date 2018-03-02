@@ -14,7 +14,7 @@ import LargeButton from './../../components/LargeButton/LargeButton';
 // Styles
 import styles from './CalculatorNumPad.styles';
 
-export default ({ canClear, keyList, handleKeyPress, handleDoubleZeroPress, handleCameraPress, handleDeletePress, handleClearPress }) => (
+export default ({ canClear, keyList, handleKeyPress, handleDoubleZeroPress, handleCameraPress, handleDeletePress, handleClearPress, handleCalculatePress }) => (
   <View style={styles.container}>
     <View style={styles.row}>
       <View style={styles.keyPadContainer}>
@@ -28,7 +28,7 @@ export default ({ canClear, keyList, handleKeyPress, handleDoubleZeroPress, hand
           <Icon src={require('./../../assets/icons/clear-disabled.png')} />
         }
         </LargeButton>
-        <LargeButton style={styles.key} handleOnPress={() => handleDeletePress()} disabled={!canClear} >
+        <LargeButton style={styles.key} handleOnPress={handleDeletePress} disabled={!canClear} >
         { 
           canClear ? 
           <Icon src={require('./../../assets/icons/delete.png')} /> :
@@ -52,11 +52,20 @@ export default ({ canClear, keyList, handleKeyPress, handleDoubleZeroPress, hand
         <LargeButton style={styles.key} handleOnPress={() => handleKeyPress(3)} >{3}</LargeButton>
         
         {/* camera, 0, 00 */}
-        <LargeButton style={styles.key} handleOnPress={() => handleCameraPress()} >
+        <LargeButton style={styles.key} handleOnPress={handleCameraPress} >
         <Icon src={require('./../../assets/icons/camera.png')} />
         </LargeButton>
         <LargeButton style={styles.key} handleOnPress={() => handleKeyPress(0)} >{0}</LargeButton>
-        <LargeButton style={styles.key} handleOnPress={() => handleDoubleZeroPress()} >{0}{0}</LargeButton>
+        <LargeButton style={styles.key} handleOnPress={handleDoubleZeroPress} >{0}{0}</LargeButton>
+
+        {/* Calculate */}
+        <LargeButton style={styles.calculateKey} onPress={handleCalculatePress} disabled={!canClear} >
+        {
+          canClear
+          ? <Text style={styles.calculateText} >Calculate</Text>
+          : " "
+        }
+        </LargeButton>
       </View>
     </View>
   </View>

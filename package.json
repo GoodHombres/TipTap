@@ -13,6 +13,10 @@
   "scripts": {
     "android": "react-native run-android",
     "erick": "react-native run-ios --device 'Erick'",
+    "iphoneSE": "react-native run-ios --simulator='iPhone SE'",
+    "iphone7": "react-native run-ios --simulator='iPhone 7'",
+    "iphoneX": "react-native run-ios --simulator='iPhone X'",
+    "ipadAir": "react-native run-ios --simulator='iPad Air'",
     "ios": "react-native run-ios",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"

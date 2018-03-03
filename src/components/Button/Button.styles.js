@@ -4,6 +4,6 @@ export default StyleSheet.create({
   container: {
     borderRadius: 4,
     alignItems: 'center',
-    padding: 22,
+    justifyContent: 'center',
   },
 });

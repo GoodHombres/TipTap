@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 
 // Components
 import Icon from './../../components/Icon/Icon';
@@ -15,7 +15,7 @@ import RadioButton from './../../components/RadioButton/RadioButton';
 import styles from './CalculatorHeader.styles';
 
 export default ({ tipList, selectedTip, handleSelectTip, handleSettingsPress }) => (
-  <View style={styles.container}>
+  <SafeAreaView style={styles.container}>
     <View style={styles.tipListContainer}>
       {
         tipList.map((tip, index) => {
@@ -36,5 +36,5 @@ export default ({ tipList, selectedTip, handleSelectTip, handleSettingsPress }) 
     <TouchableOpacity style={styles.settingsBtn} onPress={handleSettingsPress}>
       <Icon size={'sm'} src={require('./../../assets/icons/settings.png')} />
     </TouchableOpacity>
-  </View>
+  </SafeAreaView>
 );

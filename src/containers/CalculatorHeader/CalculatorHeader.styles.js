@@ -2,16 +2,16 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     flexDirection: 'row',
     flexWrap: 'nowrap',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 20,
   },
   tipListContainer: {
+    paddingLeft: 20,
     flexDirection: 'row',
     flexWrap: 'nowrap',
+    paddingBottom: 20,
   },
   superscript: {
     color: '#fff',
@@ -21,6 +21,7 @@ export default StyleSheet.create({
   },
   settingsBtn: {
     padding: 10,
-    paddingRight: 0,
+    paddingRight: 20,
+    paddingBottom: 20,
   },
 });

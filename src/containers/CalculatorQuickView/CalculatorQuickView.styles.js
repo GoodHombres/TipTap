@@ -2,15 +2,14 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    width: '100%',
-    marginTop: 20,
-    padding: 20,
     alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    flex: 1,
   },
   row: {
     flexDirection: 'row',
     flexWrap: 'nowrap',
-    marginTop: 20,
+    margin: 20,
   },
   stackView: {
     marginLeft: 20,
@@ -27,6 +26,8 @@ export default StyleSheet.create({
     fontSize: 64,
     fontWeight: '900',
     lineHeight: 64,
+    marginTop: 40,
+    marginRight: 20,
   },
   emptyText: {
     color: '#fff',

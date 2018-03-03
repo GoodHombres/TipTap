@@ -5,23 +5,26 @@
  */
 
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 
 // Components
 import Icon from './../../components/Icon/Icon';
-import LargeButton from './../../components/LargeButton/LargeButton';
+import Button from './../../components/Button/Button';
 
 // Styles
 import styles from './CalculatorNumPad.styles';
 
-const numberList = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '00', '0'];
+const numberList = ['7', '8', '9', '4', '5', '6', '1', '2', '3', null, '0', '00'];
 
 export default ({ amountEntered, canClear, handleClearPress, handleDeletePress, handleKeyPress, handleNavigation }) => (
   <View style={styles.container}>
-    <View style={styles.row}>
-      {/* Empty, Clear & Delete Button */}
-      <LargeButton style={styles.column} disabled />
-      <LargeButton style={styles.column} handleOnPress={() => handleClearPress()} disabled={!canClear} >
+    <SafeAreaView style={styles.row}>
+      {/* Camera Button */}
+      <Button style={styles.column} handleOnPress={() => handleNavigation(null)} >
+        <Icon size={'md'} src={require('./../../assets/icons/camera.png')} />
+      </Button>
+      {/* Clear Button */}
+      <Button style={styles.column} handleOnPress={() => handleClearPress()} disabled={!canClear} >
         {
           <Icon size={'md'} src={
             canClear
@@ -30,8 +33,9 @@ export default ({ amountEntered, canClear, handleClearPress, handleDeletePress, 
           }
           />
         }
-      </LargeButton>
-      <LargeButton style={styles.column} handleOnPress={handleDeletePress} disabled={!canClear} >
+      </Button>
+      {/* Empty Button */}
+      <Button style={styles.column} handleOnPress={handleDeletePress} disabled={!canClear} >
         {
           <Icon size={'md'} src={
             canClear
@@ -40,26 +44,21 @@ export default ({ amountEntered, canClear, handleClearPress, handleDeletePress, 
           }
           />
         }
-      </LargeButton>
+      </Button>
       {
         /* Number Buttons */
         numberList.map((number, index) => {
           return (
-            <LargeButton key={index} style={styles.column} handleOnPress={() => handleKeyPress(number)} >
-              <Text style={styles.numText} >{number}</Text>
-            </LargeButton>
+            <Button key={index} style={styles.column} disabled={!number} handleOnPress={() => handleKeyPress(number)} >
+              <Text style={styles.text} >{number}</Text>
+            </Button>
           );
         })
       }
-      {/* Camera Button */}
-      <LargeButton style={styles.column} handleOnPress={() => handleNavigation(null)} >
-        <Icon size={'md'} src={require('./../../assets/icons/camera.png')} />
-      </LargeButton>
-
       {/* Calculate Button */}
-      <LargeButton style={styles.full} handleOnPress={() => handleNavigation(null, { amountEntered })} disabled={!canClear} >
-        <Text style={[styles.numText, canClear ? styles.green : styles.gray]} >Calculate</Text>
-      </LargeButton>
-    </View>
+      <Button style={styles.full} handleOnPress={() => handleNavigation(null, { amountEntered })} disabled={!canClear} >
+        <Text style={[styles.text, canClear ? styles.green : styles.gray]} >Calculate</Text>
+      </Button>
+    </SafeAreaView>
   </View>
 );

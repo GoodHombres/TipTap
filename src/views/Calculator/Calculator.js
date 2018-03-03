@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import { SafeAreaView } from 'react-native';
+import { StatusBar, View } from 'react-native';
 
 // Containers
 import Header from './../../containers/CalculatorHeader/CalculatorHeader';
@@ -109,7 +109,9 @@ export default class Calculator extends Component {
     const tipList = [10, 15, 18, 20, 25];
 
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
+        {/* Status Bar */}
+        <StatusBar barStyle={'light-content'} />
         {/* Header Container */}
         <Header
           tipList={tipList}
@@ -131,7 +133,7 @@ export default class Calculator extends Component {
           handleClearPress={this.handleClearPress}
           handleNavigation={this.handleNavigation}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 }

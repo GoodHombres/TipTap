@@ -29,24 +29,27 @@ export default class Settings extends Component {
     this.handleAddFavoriteTip = this.handleAddFavoriteTip.bind(this);
     this.handleRemoveFavoriteTip = this.handleRemoveFavoriteTip.bind(this);
 
-    // Update data from local storage asynchronously
+  }
+
+  componentWillMount() {
+    // Retrieve data from local storage asynchronously
     this.retrieveStoredData();
+  }
+
+  componentWillUnmount() {
+    // Update data at local storage asynchronously
+    this.updateStoredData();
   }
 
   async retrieveStoredData() {
 
-    const { tipsList, favoriteTips, tipsListDataSource, favoriteTipsDataSource } = this.state;
+    const { tipsList, favoriteTips } = this.state;
 
     let newTipsList = null;
     try {
       // Retrieve tipsList asynchronously from local storage
       newTipsList = JSON.parse(await AsyncStorage.getItem('tipsList'));
-
     } catch (error) {
-
-      // Reuse old values
-      newTipsList = tipsList;
-
       // TODO: Toast error message
       console.log('Tips List saving ERROR!');
     }
@@ -55,17 +58,24 @@ export default class Settings extends Component {
     try {
       // Retrieve favoriteTips asynchronously from local storage
       newFavoriteTips = JSON.parse(await AsyncStorage.getItem('favoriteTips'));
-
     } catch (error) {
-
-      // Reuse old values
-      newFavoriteTips = favoriteTips;
-
       // TODO: Toast error message
       console.log('Tips List saving ERROR!');
     }
 
-    // Update state if data was found or set same old values
+    console.log(newTipsList)
+
+    // If there is no stored data use old data
+    if( !newFavoriteTips ) {
+      newFavoriteTips = favoriteTips;
+    }
+
+    // If there is no stored data use old data
+    if( !newTipsList ) {
+      newTipsList = tipsList;
+    }
+
+    // Update state
     this.setState({
       tipsList: newTipsList,
       favoriteTips: newFavoriteTips,
@@ -95,6 +105,10 @@ export default class Settings extends Component {
 
   handleAddTip(tip) {
     const { tipsList } = this.state;
+
+    console.log(this.state);
+    return;
+
     // TODO: Make sure tip is an Integer
     // https://facebook.github.io/react-native/docs/alert.html
 
@@ -103,8 +117,8 @@ export default class Settings extends Component {
     // Create new array with requested tip removed
     const newTipsList = [...tipsList, parseInt(tip)].sort((a, b) => a > b);
 
-    // Set state and callback to store in local storage
-    this.setState({ tipsList: newTipsList }, this.updateStoredData);
+    // Update state
+    this.setState({ tipsList: newTipsList });
   }
 
   handleRemoveTip(tip) {
@@ -113,11 +127,8 @@ export default class Settings extends Component {
     const newTipsList = tipsList.filter(t => t !== tip);
     const newFavoriteTips = favoriteTips.filter(t => t !== tip);
 
-    // Set state and callback to store in local storage
-    this.setState({
-      tipsList: newTipsList,
-      favoriteTips: newFavoriteTips,
-    }, this.updateStoredData);
+    // Update state
+    this.setState({ tipsList: newTipsList, favoriteTips: newFavoriteTips });
   }
 
   handleAddFavoriteTip(tip) {
@@ -130,8 +141,8 @@ export default class Settings extends Component {
     // Create new array with requested tip removed
     const newFavoriteTips = [...favoriteTips, parseInt(tip)].sort((a, b) => a > b);
 
-    // Set state and callback to store in local storage
-    this.setState({ favoriteTips: newFavoriteTips }, this.updateStoredData);
+    // Update state
+    this.setState({ favoriteTips: newFavoriteTips });
   }
 
   handleRemoveFavoriteTip(tip) {
@@ -140,8 +151,8 @@ export default class Settings extends Component {
     // Create new array with requested tip removed
     const newFavoriteTips = favoriteTips.filter(t => t !== tip);
 
-    // Set state and callback to store in local storage
-    this.setState({ favoriteTips: newFavoriteTips }, this.updateStoredData);
+    // Update state
+    this.setState({ favoriteTips: newFavoriteTips });
   }
 
   handleInputChange(text) {

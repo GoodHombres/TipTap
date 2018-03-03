@@ -4,7 +4,7 @@
  * @param {number} amount
  */
 export default (amount) => {
- const factor = Math.pow(10, 2);
+ const factor = 10 ** 2;
 
  return isNaN(amount)
   // If not a number return 0

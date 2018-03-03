@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import styles from './CalculatorQuickView.styles';
 
+import USD from './../../utils/convertUSD';
 import calculateTip from './../../utils/calculateTip';
 import calculateTotal from './../../utils/calculateTotal';
 
@@ -10,7 +11,12 @@ export default({ amountEntered, selectedTip }) => (
     {/* Amount Entered */}
     <Text style={styles.billText}>
       <Text style={styles.superscriptBig}>$</Text>
-      {amountEntered}
+      {
+        USD(amountEntered)
+        // (amountEntered)
+        //   ? amountEntered
+        //   : '0.00'
+      }
     </Text>
     {/* Row */}
     <View style={styles.row}>
@@ -19,7 +25,7 @@ export default({ amountEntered, selectedTip }) => (
         <Text style={styles.label}>Tip</Text>
         {
           // If amount has been entered
-          (amountEntered)
+          (amountEntered && selectedTip)
             // Display calculation
             ? <Text style={styles.specialText}>
                 <Text style={styles.superscript}>$</Text>
@@ -27,8 +33,8 @@ export default({ amountEntered, selectedTip }) => (
               </Text>
             // Otherwise no calculation
             : <Text style={[styles.specialText, styles.emptyText]}>
-                <Text style={styles.superscript} />
-                N/A
+                <Text style={styles.superscript}>$</Text>
+                0.00
               </Text>
         }
       </View>
@@ -45,8 +51,8 @@ export default({ amountEntered, selectedTip }) => (
               </Text>
             // Otherwise no calculation
             : <Text style={[styles.specialText, styles.emptyText]}>
-                <Text style={styles.superscript} />
-                N/A
+                <Text style={styles.superscript}>$</Text>
+                0.00
               </Text>
         }
       </View>

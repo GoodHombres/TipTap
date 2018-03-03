@@ -5,17 +5,17 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, Text, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native';
 
+// Containers
 import Header from './../../containers/CalculatorHeader/CalculatorHeader';
 import QuickView from './../../containers/CalculatorQuickView/CalculatorQuickView';
 import NumPad from './../../containers/CalculatorNumPad/CalculatorNumPad';
+
+// Styles
 import styles from './Calculator.styles';
 
-import round from './../../utils/roundUSD';
-
-type Props = {};
-export default class Calculator extends Component<Props> {
+export default class Calculator extends Component {
   // Hide navigation header
   static navigationOptions = {
     header: null,
@@ -36,44 +36,70 @@ export default class Calculator extends Component<Props> {
     this.handleDeletePress = this.handleDeletePress.bind(this);
   }
 
-  handleSelectTip(tip) {
-    this.setState({ selectedTip: tip });
+  /**
+   * Resets the amount entered back to zero
+   *
+   */
+  handleClearPress() {
+    this.setState({ amountEntered: 0 });
   }
 
-  handleNavigation(view, params = null) {
-    const { navigate } = this.props.navigation;
-
-    console.log(`Navigate to ${view}`);
-    console.log(params);
-    navigate(view, params);
-  }
-
-  handleKeyPress(key) {
-
-    // TODO: Change
-    const maxDigits = 6;
-
+  /**
+   * Removes the last digit entered from the amountEntered
+   *
+   */
+  handleDeletePress() {
     const { amountEntered } = this.state;
 
+    this.setState({ amountEntered: Math.floor(amountEntered / 10) });
+  }
+
+  /**
+   * Adds digit to amountEntered
+   *
+   * @param {string} digit
+   */
+  handleKeyPress(digit) {
+    const { amountEntered } = this.state;
+    const maxDigits = 6;
+
     // Calculate only if number pressed or max digits not reached
-    if (isNaN(key) || amountEntered.toString().length >= maxDigits) return;
+    if (isNaN(digit) || amountEntered.toString().length >= maxDigits) return;
 
     // Calculate current digits distance to max allowed
-    const complement = maxDigits - this.state.amountEntered.toString().length;
+    const complement = maxDigits - amountEntered.toString().length;
 
     // Calculate factor trimmed to max digits allowed
-    const added = complement < 2 ? key.substr(-1) : key;
+    const added = complement < 2 ? digit.substr(-1) : digit;
 
     // Set new amount
     this.setState({ amountEntered: parseInt(`${amountEntered}` + added, 10) });
   }
 
-  handleClearPress() {
-    this.setState({ amountEntered: 0 });
+  /**
+   * Navigates to given view and sends parameteres
+   *
+   * @param {string} view
+   * @param {any} params
+   */
+  handleNavigation(view, params = null) {
+    const { navigate } = this.props.navigation;
+
+    console.log(`Navigate to ${view}`);
+    console.log(params);
+
+    if (!view) return;
+
+    navigate(view, params);
   }
 
-  handleDeletePress() {
-    this.setState({ amountEntered: Math.floor(this.state.amountEntered / 10) });
+  /**
+   * Sets the selected tip
+   *
+   * @param {number} tip
+   */
+  handleSelectTip(tip) {
+    this.setState({ selectedTip: tip });
   }
 
   render() {
@@ -92,15 +118,19 @@ export default class Calculator extends Component<Props> {
           handleSettingsPress={() => this.handleNavigation('Settings')}
         />
         {/* QuickView */}
-        <QuickView selectedTip={selectedTip} amountEntered={amountEntered} />
+        <QuickView
+          selectedTip={selectedTip}
+          amountEntered={amountEntered}
+        />
         {/* NumPad */}
         <NumPad
+          amountEntered={amountEntered}
+          canClear={amountEntered !== 0}
           handleKeyPress={this.handleKeyPress}
           handleDeletePress={this.handleDeletePress}
           handleClearPress={this.handleClearPress}
-          handleCameraPress={() => this.handleNavigation(null)}
-          handleCalculatePress={() => this.handleNavigation(null)}
-          canClear={amountEntered !== 0} />
+          handleNavigation={this.handleNavigation}
+        />
       </SafeAreaView>
     );
   }

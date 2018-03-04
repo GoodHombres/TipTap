@@ -6,52 +6,51 @@ export default StyleSheet.create({
     backgroundColor: '#020202',
     padding: 20,
   },
-  section: {
-    padding: 10,
-  },
-  title: {
+  sectionTitle: {
     color: '#fff',
-    padding: 2,
-    fontWeight: '200',
-    fontSize: 24,
+    padding: 20,
+    paddingBottom: 10,
   },
-  item: {
-    padding: 10,
-    justifyContent: 'space-between',
-    marginBottom: 1,
-    backgroundColor: 'rgba(246, 247, 249, 0.08)',
-  },
-  commonText: {
-    color: '#fff',
-    fontSize: 18,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  itemButton: {
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  input: {
-    padding: 10,
-    marginRight: 20,
-    borderColor: '#aaa',
-    borderWidth: 1,
-  },
-  addButton: {
+  full: { flex: 1 },
+  inputHint: {
+    color: '#e4e4e4',
+    fontSize: 12,
     padding: 20,
     paddingTop: 10,
-    paddingBottom: 10,
-    backgroundColor: 'rgba(246, 247, 249, 0.08)',
   },
-  green: {
+  valid: {
     color: '#4cd964',
   },
-  gray: {
-    color: '#8e8e93',
+  invalid: {
+    color: '#ff3b30',
   },
-  topSpaced: {
-    paddingTop: 10,
+  createButton: {
+    padding: 10,
+    alignSelf: 'flex-end',
+  },
+  emptyText: {
+    paddingLeft: 20,
+    color: 'rgba(246, 247, 249, 0.75)',
+  },
+  itemText: {
+    color: '#fff',
+    fontSize: 16,
+    paddingLeft: 20,
+  },
+  itemButton: {
+    padding: 10,
+  },
+  danger: {
+    marginTop: 20,
+    marginBottom: 40,
+    backgroundColor: '#ff3b30',
+    borderRadius: 4,
+    padding: 20,
+    width: '100%',
+  },
+  dangerText: {
+    color: '#fff',
+    fontSize: 18,
+    textAlign: 'center',
   },
 });

@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  xs: {
+    width: 16,
+    height: 16,
+  },
   sm: {
     width: 24,
     height: 24,

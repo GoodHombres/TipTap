@@ -5,12 +5,14 @@
  */
 
 import React, { Component } from 'react';
-import { StatusBar, View } from 'react-native';
+import { AsyncStorage, StatusBar, View } from 'react-native';
 
 // Containers
 import Header from './../../containers/CalculatorHeader/CalculatorHeader';
 import QuickView from './../../containers/CalculatorQuickView/CalculatorQuickView';
 import NumPad from './../../containers/CalculatorNumPad/CalculatorNumPad';
+
+import { FAVORITE_TIP_LIST } from './../../utils/constants';
 
 // Styles
 import styles from './Calculator.styles';
@@ -25,7 +27,8 @@ export default class Calculator extends Component {
     super();
 
     this.state = {
-      selectedTip: 15,
+      tipList: null,
+      selectedTip: null,
       amountEntered: 0,
     };
 
@@ -34,6 +37,26 @@ export default class Calculator extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleClearPress = this.handleClearPress.bind(this);
     this.handleDeletePress = this.handleDeletePress.bind(this);
+  }
+
+  componentDidMount() {
+    // Get favorite tip list
+    this.getFavoriteTipList();
+  }
+
+  /**
+   * Get list of favorite tips
+   *
+   */
+  async getFavoriteTipList() {
+    try {
+      // Get favorite tips
+      const tipList = JSON.parse(await AsyncStorage.getItem(FAVORITE_TIP_LIST));
+      // Set tip list
+      this.setState({ tipList, selectedTip: (tipList && tipList.length > 0) ? tipList[0] : null });
+    } catch (e) {
+      console.warn(e);
+    }
   }
 
   /**
@@ -103,10 +126,7 @@ export default class Calculator extends Component {
   }
 
   render() {
-    const { amountEntered, selectedTip } = this.state;
-
-    // TODO: Change
-    const tipList = [10, 15, 18, 20, 25];
+    const { amountEntered, selectedTip, tipList } = this.state;
 
     return (
       <View style={styles.container}>

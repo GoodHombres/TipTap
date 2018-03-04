@@ -24,4 +24,7 @@ export default StyleSheet.create({
     paddingRight: 20,
     paddingBottom: 20,
   },
+  btnText: {
+    color: 'rgba(246, 247, 249, 0.75)',
+  },
 });

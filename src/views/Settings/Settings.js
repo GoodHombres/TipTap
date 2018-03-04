@@ -63,8 +63,6 @@ export default class Settings extends Component {
       console.log('Tips List saving ERROR!');
     }
 
-    console.log(newTipsList)
-
     // If there is no stored data use old data
     if( !newFavoriteTips ) {
       newFavoriteTips = favoriteTips;
@@ -74,12 +72,6 @@ export default class Settings extends Component {
     if( !newTipsList ) {
       newTipsList = tipsList;
     }
-
-    // Update state
-    this.setState({
-      tipsList: newTipsList,
-      favoriteTips: newFavoriteTips,
-    });
   }
 
   async updateStoredData() {
@@ -106,9 +98,6 @@ export default class Settings extends Component {
   handleAddTip(tip) {
     const { tipsList } = this.state;
 
-    console.log(this.state);
-    return;
-
     // TODO: Make sure tip is an Integer
     // https://facebook.github.io/react-native/docs/alert.html
 
@@ -118,7 +107,9 @@ export default class Settings extends Component {
     const newTipsList = [...tipsList, parseInt(tip)].sort((a, b) => a > b);
 
     // Update state
-    this.setState({ tipsList: newTipsList });
+    this.setState({ tipsList: newTipsList }, () => console.log("1"));
+
+    console.log("2");
   }
 
   handleRemoveTip(tip) {

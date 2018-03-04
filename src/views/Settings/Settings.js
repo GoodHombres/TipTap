@@ -31,7 +31,7 @@ export default class Settings extends Component {
 
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // Retrieve data from local storage asynchronously
     this.retrieveStoredData();
   }
@@ -51,7 +51,6 @@ export default class Settings extends Component {
       newTipsList = JSON.parse(await AsyncStorage.getItem('tipsList'));
     } catch (error) {
       // TODO: Toast error message
-      console.log('Tips List saving ERROR!');
     }
 
     let newFavoriteTips = null;
@@ -60,7 +59,6 @@ export default class Settings extends Component {
       newFavoriteTips = JSON.parse(await AsyncStorage.getItem('favoriteTips'));
     } catch (error) {
       // TODO: Toast error message
-      console.log('Tips List saving ERROR!');
     }
 
     // If there is no stored data use old data
@@ -72,6 +70,9 @@ export default class Settings extends Component {
     if( !newTipsList ) {
       newTipsList = tipsList;
     }
+
+    // Update state
+    this.setState({ tipsList: newTipsList, favoriteTips: newFavoriteTips });
   }
 
   async updateStoredData() {
@@ -81,7 +82,6 @@ export default class Settings extends Component {
     try {
       // Store tipsList asynchronously to local storage
       await AsyncStorage.setItem('tipsList', JSON.stringify(tipsList));
-      console.log(`Tips List saved! ${tipsList}`);
     } catch (error) {
       // TODO: Toast error message
     }
@@ -89,27 +89,30 @@ export default class Settings extends Component {
     try {
       // Store favoriteTips asynchronously to local storage
       await AsyncStorage.setItem('favoriteTips', JSON.stringify(favoriteTips));
-      console.log(`Favorite Tips saved! ${favoriteTips}`);
     } catch (error) {
       // TODO: Toast error message
     }
   }
 
   handleAddTip(tip) {
+    const max = 20;
     const { tipsList } = this.state;
 
     // TODO: Make sure tip is an Integer
     // https://facebook.github.io/react-native/docs/alert.html
 
-    if (tip === 0 || tipsList.find(t => t === tip)) return;
+    if (isNaN(tip) || tip === 0 || tipsList.find(t => t === tip)) return;
+
+    if (tipsList.length >= max) {
+      // TODO: Toast warning message indicating max tips reached
+      return;
+    }
 
     // Create new array with requested tip removed
     const newTipsList = [...tipsList, parseInt(tip)].sort((a, b) => a > b);
 
     // Update state
-    this.setState({ tipsList: newTipsList }, () => console.log("1"));
-
-    console.log("2");
+    this.setState({ tipsList: newTipsList });
   }
 
   handleRemoveTip(tip) {
@@ -127,7 +130,12 @@ export default class Settings extends Component {
     const { favoriteTips } = this.state;
     // TODO: Make sure tip is an Integer
 
-    if (isNaN(tip) || favoriteTips.length >= max || favoriteTips.find(t => t === tip)) return;
+    if (isNaN(tip) || favoriteTips.find(t => t === tip)) return;
+
+    if (favoriteTips.length >= max) {
+      // TODO: Toast warning message indicating max favorites reached
+      return;
+    }
 
     // Create new array with requested tip removed
     const newFavoriteTips = [...favoriteTips, parseInt(tip)].sort((a, b) => a > b);
@@ -154,6 +162,8 @@ export default class Settings extends Component {
 
     // Format input to allowed values
     const newValue = isNaN(value) || text[0] == '.' || text[1] == '.' ? tipInput : text;
+
+    // Update state
     this.setState({ tipInput: newValue });
   }
 
@@ -191,7 +201,7 @@ export default class Settings extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView >
-          {/* favorite tips list */}
+          {/* favorite tips list section */}
           <View style={styles.section}>
             <Text style={styles.title}>Favorite Tips</Text>
             <FlatList
@@ -201,11 +211,12 @@ export default class Settings extends Component {
               keyExtractor={(item, index) => index.toString()}
             />
           </View>
-          {/* tips list */}
+          {/* tips list section */}
           <View style={styles.section}>
             <Text style={styles.title}>Tips</Text>
             <View style={styles.row} >
               <View style={[styles.topSpaced, styles.row]} >
+                {/* tip input */}
                 <TextInput style={[styles.input, styles.commonText]}
                   placeholder={'New Tip %'}
                   placeholderTextColor={'#aaa'}
@@ -214,6 +225,7 @@ export default class Settings extends Component {
                   maxLength={2}
                   onSubmitEditing={() => this.handleAddTip(inputValue)}
                   onChangeText={this.handleInputChange.bind(this)} />
+                {/* add tip button */}
                 <Button
                   style={styles.addButton}
                   disabled={inputValue === 0}
@@ -224,6 +236,7 @@ export default class Settings extends Component {
                 </Button>
               </View>
             </View>
+            {/* favorite tips list */}
             <FlatList
               style={styles.topSpaced}
               data={tipsList}

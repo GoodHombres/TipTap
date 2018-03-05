@@ -12,6 +12,7 @@ import ListItemActions from './../../components/ListItemActions/ListItemActions'
 import styles from './Settings.styles';
 
 import { TIP_LIST, FAVORITE_TIP_LIST, FINISHED_ONBOARDING } from './../../utils/constants';
+import isValidTip from './../../utils/isValidTip';
 
 // Set input type based on Platform
 const tipInputType = Platform.select({
@@ -29,8 +30,9 @@ export default class Settings extends Component {
 
     this.state = {
       tip: null,
-      tipList: null,
-      favoriteTips: null,
+      tipList: [],
+      favoriteTips: [],
+      validTipInput: false,
     };
 
     // Bindings
@@ -62,8 +64,8 @@ export default class Settings extends Component {
       const stores = await AsyncStorage.multiGet([TIP_LIST, FAVORITE_TIP_LIST]);
       const [tipListDict, favoriteListDict] = stores;
 
-      const tipList = JSON.parse(tipListDict[1]);
-      const favoriteTips = JSON.parse(favoriteListDict[1]);
+      const tipList = JSON.parse(tipListDict[1]) || [];
+      const favoriteTips = JSON.parse(favoriteListDict[1]) || [];
 
       this.setState({ tipList, favoriteTips });
     } catch (e) {
@@ -111,8 +113,8 @@ export default class Settings extends Component {
       'Reset TipTap',
       'Are you sure you want to reset TipTap? All data will be lost.',
       [
-        {text: 'Cancel', style: 'cancel'},
-        {text: 'Reset', onPress: () => this.resetStore(), style: 'destructive' },
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Reset', onPress: () => this.resetStore(), style: 'destructive' },
       ],
     );
   }
@@ -129,26 +131,27 @@ export default class Settings extends Component {
 
     // TODO: toast with warning
     // If maxed out then return
-    if (tipList && tipList.length > 9) return;
+    if (tipList.length > 9) return;
 
-    // If tipList has items
-    if (tipList && tipList.length) {
-      // Filter to find item
-      const exists = tipList.filter(t => t === tip);
+    // If there are tips in list
+    if (tipList.length) {
+
+      // Make sure it isn't already included in list
+      const exists = tipList.find(t => t === tip);
 
       // If tip already exists exit
-      if (exists.length) return;
+      if (exists) return;
+
+      const newTipList = [parseInt(tip, 10), ...tipList].sort((a, b) => a > b);
+      // Update state
+      this.setState({ tip: null, tipList: newTipList });
+
+    } else {
+
+      const newTipList = [parseInt(tip, 10)];
+      // Update state
+      this.setState({ tip: null, tipList: newTipList });
     }
-
-    // If existing list
-    const newTipList = (tipList && tipList.length)
-      // Add to list and sort
-      ? [parseInt(tip, 10), ...tipList].sort((a, b) => a > b)
-      // Otherwise add to list
-      : [parseInt(tip, 10)];
-
-    // Update state
-    this.setState({ tip: null, tipList: newTipList });
   }
 
   /**
@@ -157,17 +160,17 @@ export default class Settings extends Component {
   handleDeleteTip(tip) {
     const { tipList, favoriteTips } = this.state;
 
-    // Filter out tip from list
-    const newTipList = tipList.filter(t => tip !== t);
-    // If there is a list of favorites
-    const newFaveTipList = (favoriteTips && favoriteTips.length)
-      // Filter out tip from list
-      ? favoriteTips.filter(t => tip !== t)
-      // Otherwise return list
-      : favoriteTips;
+    // If there are tips in list
+    if (tipList.length) {
 
-    // Update state with tips
-    this.setState({ tipList: newTipList, favoriteTips: newFaveTipList});
+      // Filter out tip from list
+      const newTipList = tipList.filter(t => tip !== t);
+      // Filter out tip from favorites
+      const newFaveTipList = favoriteTips.filter(t => tip !== t);
+
+      // Update state with tips
+      this.setState({ tipList: newTipList, favoriteTips: newFaveTipList });
+    }
   }
 
   /**
@@ -180,27 +183,29 @@ export default class Settings extends Component {
 
     // TODO: toast with warning
     // If maxed out then return
-    if (favoriteTips && favoriteTips.length > 4) return;
+    if (favoriteTips.length > 4) return;
 
-    // If favorite tips exist
-    if (favoriteTips && favoriteTips.length) {
+    if (favoriteTips.length) {
+
       // Make sure it isn't already included in list
-      // Filter to find item
-      const exists = favoriteTips.filter(t => t === tip);
+      const exists = favoriteTips.find(t => t === tip);
 
       // If tip already exists exit
-      if (exists.length) return;
+      if (exists) return;
+
+      // Create a sorted list with new tip added
+      const newFavoriteTips = [tip, ...favoriteTips].sort((a, b) => a > b);
+
+      // Update state
+      this.setState({ favoriteTips: newFavoriteTips });
+    } else {
+
+      // Create a list with new tip added
+      const newFavoriteTips = [tip];
+
+      // Update state
+      this.setState({ favoriteTips: newFavoriteTips });
     }
-
-    // If favorite states already exists
-    const newFavoriteTips = (favoriteTips && favoriteTips.length)
-      // Add tip and sort
-      ? [tip, ...favoriteTips].sort().sort((a, b) => a > b)
-      // Otherwise create array with tip
-      : [tip];
-
-    // Update state
-    this.setState({ favoriteTips: newFavoriteTips});
   }
 
   /**
@@ -211,11 +216,27 @@ export default class Settings extends Component {
   handleRemoveFavoriteTip(tip) {
     const { favoriteTips } = this.state;
 
-    // If favorite tips is an array
-    if (favoriteTips && favoriteTips.length) {
+    // If there are favorite tips
+    if (favoriteTips.length) {
       // Filter out tips
       this.setState({ favoriteTips: favoriteTips.filter(t => tip !== t) });
     }
+  }
+
+  /**
+   * Updates and validates input text
+   *
+   * @param  {string} text
+   * @returns
+   */
+  handleInputChange(text) {
+    const { tipList } = this.state;
+
+    // Validate input
+    const validTipInput = isValidTip(text);
+
+    // Validate
+    this.setState({ tip: validTipInput ? parseInt(text, 10) : null, validTipInput });
   }
 
   /**
@@ -278,8 +299,7 @@ export default class Settings extends Component {
   }
 
   render() {
-    const { tip, tipList, favoriteTips } = this.state;
-    const validTipInput = tip && !isNaN(tip) && (100 > tip) && (tipList && tipList.length <= 9);
+    const { tip, tipList, favoriteTips, validTipInput } = this.state;
 
     return (
       <SafeAreaView style={styles.container}>
@@ -289,11 +309,11 @@ export default class Settings extends Component {
             <StackView style={styles.full}>
               <InputLabel>Tip %</InputLabel>
               <Input
-                maxLength={2}
+                maxLength={3}
                 value={`${tip || ''}`}
                 keyboardType={tipInputType}
                 placeholder={'Enter tip percentage'}
-                onChangeText={(text) => this.setState({ tip: parseInt(text) || null })}
+                onChangeText={(text) => this.handleInputChange(text)}
               />
             </StackView>
             {/* Create tip button */}
@@ -303,7 +323,7 @@ export default class Settings extends Component {
           </ListItem>
           {/* Tip Hint */}
           {
-            (tip) && <Text style={[styles.inputHint, (validTipInput) ? styles.valid : styles.invalid]}>Must be a two-digit number</Text>
+            (tip) && <Text style={styles.inputHint}>Must be a three-digit number</Text>
           }
           {/* Favorite List */}
           <Text style={styles.title}>Favorite Tips</Text>

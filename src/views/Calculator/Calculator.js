@@ -27,7 +27,7 @@ export default class Calculator extends Component {
     super();
 
     this.state = {
-      tipList: null,
+      tipList: [],
       selectedTip: null,
       amountEntered: 0,
     };
@@ -51,9 +51,9 @@ export default class Calculator extends Component {
   async getFavoriteTipList() {
     try {
       // Get favorite tips
-      const tipList = JSON.parse(await AsyncStorage.getItem(FAVORITE_TIP_LIST));
+      const tipList = JSON.parse(await AsyncStorage.getItem(FAVORITE_TIP_LIST)) || [];
       // Set tip list
-      this.setState({ tipList, selectedTip: (tipList && tipList.length > 0) ? tipList[0] : null });
+      this.setState({ tipList, selectedTip: tipList.length ? tipList[0] : null });
     } catch (e) {
       console.warn(e);
     }

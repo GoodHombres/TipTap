@@ -144,13 +144,13 @@ export default class Settings extends Component {
 
       const newTipList = [parseInt(tip, 10), ...tipList].sort((a, b) => a > b);
       // Update state
-      this.setState({ tip: null, tipList: newTipList });
+      this.setState({ tip: null, tipList: newTipList }, this.storeTipLists);
 
     } else {
 
       const newTipList = [parseInt(tip, 10)];
       // Update state
-      this.setState({ tip: null, tipList: newTipList });
+      this.setState({ tip: null, tipList: newTipList }, this.storeTipLists);
     }
   }
 
@@ -169,7 +169,7 @@ export default class Settings extends Component {
       const newFaveTipList = favoriteTips.filter(t => tip !== t);
 
       // Update state with tips
-      this.setState({ tipList: newTipList, favoriteTips: newFaveTipList });
+      this.setState({ tipList: newTipList, favoriteTips: newFaveTipList }, this.storeTipLists);
     }
   }
 
@@ -197,14 +197,14 @@ export default class Settings extends Component {
       const newFavoriteTips = [tip, ...favoriteTips].sort((a, b) => a > b);
 
       // Update state
-      this.setState({ favoriteTips: newFavoriteTips });
+      this.setState({ favoriteTips: newFavoriteTips }, this.storeTipLists);
     } else {
 
       // Create a list with new tip added
       const newFavoriteTips = [tip];
 
       // Update state
-      this.setState({ favoriteTips: newFavoriteTips });
+      this.setState({ favoriteTips: newFavoriteTips }, this.storeTipLists);
     }
   }
 
@@ -219,7 +219,7 @@ export default class Settings extends Component {
     // If there are favorite tips
     if (favoriteTips.length) {
       // Filter out tips
-      this.setState({ favoriteTips: favoriteTips.filter(t => tip !== t) });
+      this.setState({ favoriteTips: favoriteTips.filter(t => tip !== t) }, this.storeTipLists);
     }
   }
 

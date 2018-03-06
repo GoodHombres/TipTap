@@ -11,7 +11,7 @@ import ListItemActions from './../../components/ListItemActions/ListItemActions'
 
 import styles from './Settings.styles';
 
-import { TIP_LIST, FAVORITE_TIP_LIST, FINISHED_ONBOARDING } from './../../utils/constants';
+import { TIP_LIST, FAVORITE_TIP_LIST, FINISHED_ONBOARDING, SELECTED_TIP } from './../../utils/constants';
 import isValidTip from './../../utils/isValidTip';
 
 // Set input type based on Platform
@@ -100,6 +100,7 @@ export default class Settings extends Component {
         TIP_LIST,
         FAVORITE_TIP_LIST,
         FINISHED_ONBOARDING,
+        SELECTED_TIP,
       ]);
 
       // Go to onboarding page

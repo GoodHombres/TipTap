@@ -25,24 +25,11 @@ export default class Settings extends Component {
     title: 'Settings',
   };
 
-  constructor() {
-    super();
-
-    this.state = {
-      tip: null,
-      tipList: [],
-      favoriteTips: [],
-      validTipInput: false,
-    };
-
-    // Bindings
-    this.resetStore = this.resetStore.bind(this);
-    this.handleResetApp = this.handleResetApp.bind(this);
-    this.handleCreateTip = this.handleCreateTip.bind(this);
-    this.handleDeleteTip = this.handleDeleteTip.bind(this);
-    this.isInFavoriteList = this.isInFavoriteList.bind(this);
-    this.handleAddFavoriteTip = this.handleAddFavoriteTip.bind(this);
-    this.handleRemoveFavoriteTip = this.handleRemoveFavoriteTip.bind(this);
+  state = {
+    tip: null,
+    tipList: [],
+    favoriteTips: [],
+    validTipInput: false,
   }
 
   componentDidMount() {
@@ -50,16 +37,11 @@ export default class Settings extends Component {
     this.getTipList();
   }
 
-  componentWillUnmount() {
-    // Store saved data
-    this.storeTipLists();
-  }
-
   /**
    * Gets tiplist
    *
    */
-  async getTipList() {
+  getTipList = async () => {
     try {
       const stores = await AsyncStorage.multiGet([TIP_LIST, FAVORITE_TIP_LIST]);
       const [tipListDict, favoriteListDict] = stores;
@@ -71,13 +53,13 @@ export default class Settings extends Component {
     } catch (e) {
       console.warn(e);
     }
-  }
+  };
 
   /**
    * Update tip list in disk
    *
    */
-  async storeTipLists() {
+  storeTipLists = async () => {
     try {
       const { tipList, favoriteTips } = this.state;
 
@@ -91,7 +73,26 @@ export default class Settings extends Component {
     }
   }
 
-  async resetStore() {
+  /**
+   * Update favorite list in disk
+   *
+   */
+  storeFavoritesList = async () => {
+    try {
+      const { favoriteTips } = this.state;
+
+      // Set items
+      await AsyncStorage.setItem(FAVORITE_TIP_LIST, JSON.stringify(favoriteTips));
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  /**
+   * Deletes app stored data
+   *
+   */
+  resetStore = async () => {
     try {
       const { navigation } = this.props;
 
@@ -108,7 +109,11 @@ export default class Settings extends Component {
     }
   }
 
-  handleResetApp() {
+  /**
+   * Warns and prompts user for app data delete confirmation
+   *
+   */
+  handleResetApp = () => {
     Alert.alert(
       'Reset TipTap',
       'Are you sure you want to reset TipTap? All data will be lost.',
@@ -123,7 +128,7 @@ export default class Settings extends Component {
    * Creates new tip and adds it to list
    *
    */
-  handleCreateTip() {
+  handleCreateTip = () => {
     const { tip, tipList } = this.state;
 
     // If no tip or it's not a number exit
@@ -156,8 +161,10 @@ export default class Settings extends Component {
 
   /**
    * Deletes tip from both lists
+   *
+   * @param {number} tip
    */
-  handleDeleteTip(tip) {
+  handleDeleteTip = (tip) => {
     const { tipList, favoriteTips } = this.state;
 
     // If there are tips in list
@@ -178,7 +185,7 @@ export default class Settings extends Component {
    *
    * @param {number} tip
    */
-  handleAddFavoriteTip(tip) {
+  handleAddFavoriteTip = (tip) => {
     const { favoriteTips } = this.state;
 
     // TODO: toast with warning
@@ -197,14 +204,14 @@ export default class Settings extends Component {
       const newFavoriteTips = [tip, ...favoriteTips].sort((a, b) => a > b);
 
       // Update state
-      this.setState({ favoriteTips: newFavoriteTips }, this.storeTipLists);
+      this.setState({ favoriteTips: newFavoriteTips }, this.storeFavoritesList);
     } else {
 
       // Create a list with new tip added
       const newFavoriteTips = [tip];
 
       // Update state
-      this.setState({ favoriteTips: newFavoriteTips }, this.storeTipLists);
+      this.setState({ favoriteTips: newFavoriteTips }, this.storeFavoritesList);
     }
   }
 
@@ -213,13 +220,13 @@ export default class Settings extends Component {
    *
    * @param {number} tip
    */
-  handleRemoveFavoriteTip(tip) {
+  handleRemoveFavoriteTip = (tip) => {
     const { favoriteTips } = this.state;
 
     // If there are favorite tips
     if (favoriteTips.length) {
       // Filter out tips
-      this.setState({ favoriteTips: favoriteTips.filter(t => tip !== t) }, this.storeTipLists);
+      this.setState({ favoriteTips: favoriteTips.filter(t => tip !== t) }, this.storeFavoritesList);
     }
   }
 
@@ -229,7 +236,7 @@ export default class Settings extends Component {
    * @param  {string} text
    * @returns
    */
-  handleInputChange(text) {
+  handleInputChange = (text) => {
     const { tipList } = this.state;
 
     // Validate input
@@ -245,7 +252,7 @@ export default class Settings extends Component {
    * @param {number} tip
    * @returns
    */
-  isInFavoriteList(tip) {
+  isInFavoriteList = (tip) => {
     const { favoriteTips } = this.state;
 
     if (favoriteTips && favoriteTips.length) {
@@ -262,7 +269,7 @@ export default class Settings extends Component {
    *
    * @param {number} tip
    */
-  renderTip(tip) {
+  renderTip = (tip) => {
     const isFaved = this.isInFavoriteList(tip);
 
     return (
@@ -285,7 +292,7 @@ export default class Settings extends Component {
    *
    * @param {number} tip
    */
-  renderFavoriteTip(tip) {
+  renderFavoriteTip = (tip) => {
     return (
       <ListItem>
         <Text style={styles.itemText} >{tip}%</Text>

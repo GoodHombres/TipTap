@@ -30,11 +30,13 @@
     "react-navigation": "^1.2.1"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.2",
     "babel-jest": "22.4.1",
     "babel-preset-react-native": "4.0.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "husky": "^0.14.3",
+    "eslint": "^4.18.2",
     "jest": "22.4.2",
     "lint-staged": "^7.0.0",
     "prettier": "^1.11.1",

@@ -12,7 +12,7 @@ import Header from './../../containers/CalculatorHeader/CalculatorHeader';
 import QuickView from './../../containers/CalculatorQuickView/CalculatorQuickView';
 import NumPad from './../../containers/CalculatorNumPad/CalculatorNumPad';
 
-import { FAVORITE_TIP_LIST } from './../../utils/constants';
+import { FAVORITE_TIP_LIST, SELECTED_TIP  } from './../../utils/constants';
 
 // Styles
 import styles from './Calculator.styles';
@@ -23,32 +23,25 @@ export default class Calculator extends Component {
     header: null,
   };
 
-  constructor() {
-    super();
-
-    this.state = {
-      tipList: [],
-      selectedTip: null,
-      amountEntered: 0,
-    };
-
-    this.handleSelectTip = this.handleSelectTip.bind(this);
-    this.handleNavigation = this.handleNavigation.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleClearPress = this.handleClearPress.bind(this);
-    this.handleDeletePress = this.handleDeletePress.bind(this);
-  }
+  state = {
+    tipList: [],
+    selectedTip: null,
+    amountEntered: 0,
+  };
 
   componentDidMount() {
     // Get favorite tip list
     this.getFavoriteTipList();
+
+    // Get last selected tip
+    this.getLastSelectedTip();
   }
 
   /**
    * Get list of favorite tips
    *
    */
-  async getFavoriteTipList() {
+  getFavoriteTipList = async () => {
     try {
       // Get favorite tips
       const tipList = JSON.parse(await AsyncStorage.getItem(FAVORITE_TIP_LIST)) || [];
@@ -60,10 +53,52 @@ export default class Calculator extends Component {
   }
 
   /**
+   * Get latest selected tip
+   *
+   */
+  getLastSelectedTip = async () => {
+    try {
+      // Get favorite tips
+      const selectedTip = JSON.parse(await AsyncStorage.getItem(SELECTED_TIP));
+      console.log(`selectedTip: ${selectedTip}`);
+
+      if (selectedTip) {
+        // Set selected tip
+        this.setState({ selectedTip });
+      } else {
+        // Get favorite tips
+        const tipList = JSON.parse(await AsyncStorage.getItem(FAVORITE_TIP_LIST));
+
+        // Set selected tip
+        this.setState({ selectedTip: (tipList && tipList[0]) || null });
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  /**
+   * Update selected tip in disk
+   *
+   */
+  storeLastSelectedTip = async () => {
+    try {
+      const { selectedTip } = this.state;
+
+      if (!selectedTip) return;
+
+      // Set items
+      await AsyncStorage.setItem(SELECTED_TIP, JSON.stringify(selectedTip));
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  /**
    * Resets the amount entered back to zero
    *
    */
-  handleClearPress() {
+  handleClearPress = () => {
     this.setState({ amountEntered: 0 });
   }
 
@@ -71,7 +106,7 @@ export default class Calculator extends Component {
    * Removes the last digit entered from the amountEntered
    *
    */
-  handleDeletePress() {
+  handleDeletePress = () => {
     const { amountEntered } = this.state;
 
     this.setState({ amountEntered: Math.floor(amountEntered / 10) });
@@ -82,7 +117,7 @@ export default class Calculator extends Component {
    *
    * @param {string} digit
    */
-  handleKeyPress(digit) {
+  handleKeyPress = (digit) => {
     const { amountEntered } = this.state;
     const maxDigits = 6;
 
@@ -105,7 +140,7 @@ export default class Calculator extends Component {
    * @param {string} view
    * @param {any} params
    */
-  handleNavigation(view, params = null) {
+  handleNavigation = (view, params = null) => {
     const { navigate } = this.props.navigation;
 
     console.log(`Navigate to ${view}`);
@@ -121,8 +156,8 @@ export default class Calculator extends Component {
    *
    * @param {number} tip
    */
-  handleSelectTip(tip) {
-    this.setState({ selectedTip: tip });
+  handleSelectTip = (tip) => {
+    this.setState({ selectedTip: tip }, this.storeLastSelectedTip);
   }
 
   render() {

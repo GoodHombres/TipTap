@@ -79,15 +79,22 @@ export default class Snackbar extends Component {
   }
 
   handleLayout = event => {
+    // If its not currently animating
     if (!this.active) {
       const { height } = event.nativeEvent.layout;
       const { position } = this.props;
       const offset = height + 20;
       const start = (position === 'bottom' ? offset : -offset);
 
+      // Update state with Animated value for snackbar start position
       this.setState({ animatedFrom: new Animated.Value(start) }, () => {
+
+        // Update start position for reuse
         this.start = start;
+        // Flag as animating
         this.active = true;
+
+        // Display snackbar
         this.display();
       });
     }
@@ -102,8 +109,14 @@ export default class Snackbar extends Component {
     };
 
     return (
-      <Animated.View onLayout={this.handleLayout} style={[ styles.container , styles[position], animationStyle]}>
-        <Text style={ type ? [styles.text, styles[type]] : styles.text } >
+      <Animated.View
+        onLayout={this.handleLayout}
+        style={
+          type
+          ? [ styles.container, styles[position], animationStyle, styles[type]]
+          : [ styles.container, styles[position], animationStyle]
+        } >
+        <Text style={ type ? [styles.text, styles[`${type}Text`]] : styles.text } >
           {children}
         </Text>
       </Animated.View>

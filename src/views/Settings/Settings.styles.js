@@ -1,18 +1,10 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#020202',
     padding: 20
-  },
-  backButton: {
-    marginLeft: 20
-  },
-  backButtonText: {
-    paddingLeft: 10,
-    fontSize: 16,
-    color: '#fff'
   },
   sectionTitle: {
     color: '#fff',
@@ -61,4 +53,4 @@ export default StyleSheet.create({
     fontSize: 18,
     textAlign: 'center'
   }
-})
+});

@@ -1,9 +1,7 @@
-export default (amount) => {
+export default amount => {
   // If no amount return default value
-  if (!amount || isNaN(amount)) return '0.00';
+  if (!amount || isNaN(amount)) return '0.00'
 
   // Return amount as USD
-  return (amount / 100)
-    .toLocaleString('en-US', { style: 'currency', currency: 'USD' })
-    .substr(1);
+  return parseFloat(amount / 100).toFixed(2)
 }

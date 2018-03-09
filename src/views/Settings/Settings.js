@@ -8,6 +8,7 @@ import ListItem from './../../components/ListItem/ListItem';
 import StackView from './../../components/StackView/StackView';
 import InputLabel from './../../components/InputLabel/InputLabel';
 import ListItemActions from './../../components/ListItemActions/ListItemActions';
+import SnackbarDispatcher from './../../containers/SnackbarDispatcher/SnackbarDispatcher';
 
 import styles from './Settings.styles';
 
@@ -132,12 +133,17 @@ export default class Settings extends Component {
   handleCreateTip = () => {
     const { tip, tipList } = this.state;
 
+    const maxTips = 10;
+
     // If no tip or it's not a number exit
     if (!tip || isNaN(tip)) return;
 
     // TODO: toast with warning
     // If maxed out then return
-    if (tipList.length > 9) return;
+    if (tipList.length >= maxTips) {
+      SnackbarDispatcher.message(`Can't add more than ${maxTips} tips to the list.`, 'warning', 'bottom');
+      return;
+    }
 
     // If there are tips in list
     if (tipList.length) {
@@ -165,7 +171,7 @@ export default class Settings extends Component {
    *
    * @param {number} tip
    */
-  handleDeleteTip = (tip) => {
+  handleDeleteTip = tip => {
     const { tipList, favoriteTips } = this.state;
 
     // If there are tips in list
@@ -186,12 +192,12 @@ export default class Settings extends Component {
    *
    * @param {number} tip
    */
-  handleAddFavoriteTip = (tip) => {
+  handleAddFavoriteTip = tip => {
     const { favoriteTips } = this.state;
 
     // TODO: toast with warning
     // If maxed out then return
-    if (favoriteTips.length > 4) return;
+    if (favoriteTips.length >= 5) return;
 
     if (favoriteTips.length) {
 
@@ -221,7 +227,7 @@ export default class Settings extends Component {
    *
    * @param {number} tip
    */
-  handleRemoveFavoriteTip = (tip) => {
+  handleRemoveFavoriteTip = tip => {
     const { favoriteTips } = this.state;
 
     // If there are favorite tips
@@ -237,7 +243,7 @@ export default class Settings extends Component {
    * @param  {string} text
    * @returns
    */
-  handleInputChange = (text) => {
+  handleInputChange = text => {
     const { tipList } = this.state;
 
     // Validate input
@@ -253,7 +259,7 @@ export default class Settings extends Component {
    * @param {number} tip
    * @returns
    */
-  isInFavoriteList = (tip) => {
+  isInFavoriteList = tip => {
     const { favoriteTips } = this.state;
 
     if (favoriteTips && favoriteTips.length) {
@@ -270,7 +276,7 @@ export default class Settings extends Component {
    *
    * @param {number} tip
    */
-  renderTip = (tip) => {
+  renderTip = tip => {
     const isFaved = this.isInFavoriteList(tip);
 
     return (
@@ -293,7 +299,7 @@ export default class Settings extends Component {
    *
    * @param {number} tip
    */
-  renderFavoriteTip = (tip) => {
+  renderFavoriteTip = tip => {
     return (
       <ListItem>
         <Text style={styles.itemText} >{tip}%</Text>

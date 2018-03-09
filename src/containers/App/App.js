@@ -11,6 +11,7 @@ import { StackNavigator } from 'react-navigation';
 import Calculator from './../../views/Calculator/Calculator';
 import Onboarding from './../../views/Onboarding/Onboarding';
 import Settings from './../../views/Settings/Settings';
+import SnackbarDispatcher from './../../containers/SnackbarDispatcher/SnackbarDispatcher';
 
 // Routing
 const RootStack = StackNavigator(
@@ -38,4 +39,4 @@ const RootStack = StackNavigator(
 );
 
 // Export Root Stack
-export default () => <RootStack />;
+export default () => <SnackbarDispatcher><RootStack /></SnackbarDispatcher>;

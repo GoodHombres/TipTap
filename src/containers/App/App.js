@@ -4,22 +4,24 @@
  * @flow
  */
 
-import React from 'react'
-import { StackNavigator, SwitchNavigator } from 'react-navigation'
+import React from 'react';
+import { StackNavigator, SwitchNavigator } from 'react-navigation';
 
 // Views
-import Settings from './../../views/Settings/Settings'
-import Calculator from './../../views/Calculator/Calculator'
-import Onboarding from './../../views/Onboarding/Onboarding'
-import AuthLoading from './../../views/AuthLoading/AuthLoading'
-import SnackbarDispatcher from './../../containers/SnackbarDispatcher/SnackbarDispatcher'
+import Detail from './../../views/Detail/Detail';
+import Settings from './../../views/Settings/Settings';
+import Calculator from './../../views/Calculator/Calculator';
+import Onboarding from './../../views/Onboarding/Onboarding';
+import AuthLoading from './../../views/AuthLoading/AuthLoading';
+import SnackbarDispatcher from './../../containers/SnackbarDispatcher/SnackbarDispatcher';
 
 // Routing
 const AppStack = StackNavigator(
   // Route Map
   {
     Calculator: { screen: Calculator },
-    Settings: { screen: Settings }
+    Settings: { screen: Settings },
+    Detail: { screen: Detail }
   },
   // Stack Config
   {
@@ -39,9 +41,9 @@ const AppStack = StackNavigator(
       }
     }
   }
-)
+);
 
-const OnboardingStack = StackNavigator({ Onboarding: { screen: Onboarding } })
+const OnboardingStack = StackNavigator({ Onboarding: { screen: Onboarding } });
 
 const App = SwitchNavigator(
   {
@@ -52,11 +54,11 @@ const App = SwitchNavigator(
   {
     initialRouteName: 'AuthLoading'
   }
-)
+);
 
 // Export Root Stack
 export default () => (
   <SnackbarDispatcher>
     <App />
   </SnackbarDispatcher>
-)
+);

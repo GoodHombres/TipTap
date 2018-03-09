@@ -70,6 +70,10 @@ export default class Settings extends Component {
         [FAVORITE_TIP_LIST, JSON.stringify(favoriteTips)],
       ]);
     } catch (e) {
+
+      // Let user know about error loading tips from disk
+      SnackbarDispatcher.message(`Saved tips could not be loaded.`, 'error', 'bottom');
+
       console.warn(e);
     }
   }
@@ -85,6 +89,10 @@ export default class Settings extends Component {
       // Set items
       await AsyncStorage.setItem(FAVORITE_TIP_LIST, JSON.stringify(favoriteTips));
     } catch (e) {
+
+      // Let user know about error saving tips to disk
+      SnackbarDispatcher.message(`Unable to save tips at this time.`, 'error', 'bottom');
+
       console.warn(e);
     }
   }
@@ -141,7 +149,11 @@ export default class Settings extends Component {
     // TODO: toast with warning
     // If maxed out then return
     if (tipList.length >= maxTips) {
+
+      // Let user know about max limit reached
       SnackbarDispatcher.message(`Can't add more than ${maxTips} tips to the list.`, 'warning', 'bottom');
+
+      // Early exit
       return;
     }
 
@@ -152,7 +164,14 @@ export default class Settings extends Component {
       const exists = tipList.find(t => t === tip);
 
       // If tip already exists exit
-      if (exists) return;
+      if (exists) {
+
+        // Let user know about tip already added
+        SnackbarDispatcher.message(`A ${tip}% tip already exists.`, 'error', 'bottom');
+
+        // Early exit
+        return;
+      }
 
       const newTipList = [parseInt(tip, 10), ...tipList].sort((a, b) => a > b);
       // Update state
@@ -195,9 +214,18 @@ export default class Settings extends Component {
   handleAddFavoriteTip = tip => {
     const { favoriteTips } = this.state;
 
+    const maxTips = 5;
+
     // TODO: toast with warning
     // If maxed out then return
-    if (favoriteTips.length >= 5) return;
+    if (favoriteTips.length >= maxTips) {
+
+      // Let user know about max limit reached
+      SnackbarDispatcher.message(`Can't add more than ${maxTips} tips to the list.`, 'warning', 'bottom');
+
+      // Early exit
+      return;
+    }
 
     if (favoriteTips.length) {
 
@@ -205,7 +233,13 @@ export default class Settings extends Component {
       const exists = favoriteTips.find(t => t === tip);
 
       // If tip already exists exit
-      if (exists) return;
+      if (exists) {
+        // Let user know about tip already added
+        SnackbarDispatcher.message(`A ${tip}% tip already exists.`, 'error', 'bottom');
+
+        // Early exit
+        return;
+      }
 
       // Create a sorted list with new tip added
       const newFavoriteTips = [tip, ...favoriteTips].sort((a, b) => a > b);

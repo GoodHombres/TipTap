@@ -12,7 +12,7 @@ export default StyleSheet.create({
   },
   text: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
   },
   top: {
     top: 10,
@@ -21,12 +21,21 @@ export default StyleSheet.create({
     bottom: 10,
   },
   success: {
-    color: '#4cd964'
+    backgroundColor: '#4cd964',
   },
   warning: {
-    color: '#f2c94c'
+    backgroundColor: '#f2c94c',
   },
   error: {
-    color: '#ff3b30'
+    backgroundColor: '#ff3b30',
+  },
+  successText: {
+    color: '#222',
+  },
+  warningText: {
+    color: '#222',
+  },
+  errorText: {
+    color: '#000',
   },
 });

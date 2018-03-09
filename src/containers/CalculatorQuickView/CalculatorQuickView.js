@@ -15,9 +15,22 @@ export default ({ amountEntered, selectedTip }) => (
     </Text>
     {/* Row */}
     <View style={styles.row}>
-      {/* Tip */}
+      {/* Tip Percent */}
       <View style={styles.stackView}>
         <Text style={styles.label}>Tip</Text>
+        <Text
+          style={
+            amountEntered && selectedTip
+              ? styles.specialText
+              : [styles.specialText, styles.emptyText]
+          }>
+          {selectedTip}
+          <Text style={styles.superscript}>%</Text>
+        </Text>
+      </View>
+      {/* Tip */}
+      <View style={styles.stackView}>
+        <Text style={styles.label}>Tip Amount</Text>
         <Text
           style={
             amountEntered && selectedTip
@@ -30,7 +43,7 @@ export default ({ amountEntered, selectedTip }) => (
       </View>
       {/* Total */}
       <View style={styles.stackView}>
-        <Text style={styles.label}>Total</Text>
+        <Text style={styles.label}>Total Amount</Text>
         <Text
           style={
             amountEntered && selectedTip

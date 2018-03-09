@@ -1,9 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
- input: {
-   color: '#fff',
-   flex: 1,
-   padding: 10,
- },
-});
+  input: {
+    color: '#fff',
+    flex: 1,
+    padding: 10,
+    fontSize: 16
+  }
+})

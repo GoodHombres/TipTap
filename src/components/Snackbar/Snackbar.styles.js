@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   container: {
@@ -8,34 +8,34 @@ export default StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     right: 0,
-    left: 0,
+    left: 0
   },
   text: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 18
   },
   top: {
-    top: 10,
+    top: 30
   },
   bottom: {
-    bottom: 10,
+    bottom: 20
   },
   success: {
-    backgroundColor: '#4cd964',
+    backgroundColor: '#4cd964'
   },
   warning: {
-    backgroundColor: '#f2c94c',
+    backgroundColor: '#f2c94c'
   },
   error: {
-    backgroundColor: '#ff3b30',
+    backgroundColor: '#ff3b30'
   },
   successText: {
-    color: '#222',
+    color: '#222'
   },
   warningText: {
-    color: '#222',
+    color: '#222'
   },
   errorText: {
-    color: '#000',
-  },
-});
+    color: '#000'
+  }
+})

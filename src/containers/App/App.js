@@ -4,39 +4,59 @@
  * @flow
  */
 
-import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import React from 'react'
+import { StackNavigator, SwitchNavigator } from 'react-navigation'
 
 // Views
-import Calculator from './../../views/Calculator/Calculator';
-import Onboarding from './../../views/Onboarding/Onboarding';
-import Settings from './../../views/Settings/Settings';
-import SnackbarDispatcher from './../../containers/SnackbarDispatcher/SnackbarDispatcher';
+import Settings from './../../views/Settings/Settings'
+import Calculator from './../../views/Calculator/Calculator'
+import Onboarding from './../../views/Onboarding/Onboarding'
+import AuthLoading from './../../views/AuthLoading/AuthLoading'
+import SnackbarDispatcher from './../../containers/SnackbarDispatcher/SnackbarDispatcher'
 
 // Routing
-const RootStack = StackNavigator(
+const AppStack = StackNavigator(
   // Route Map
   {
     Calculator: { screen: Calculator },
-    Onboarding: { screen: Onboarding },
-    Settings: { screen: Settings },
+    Settings: { screen: Settings }
   },
   // Stack Config
   {
-    initialRouteName: 'Onboarding',
+    initialRouteName: 'Calculator',
+    mode: 'modal',
     navigationOptions: {
+      headerBackImage: require('./../../assets/icons/close.png'),
+      headerBackTitle: 'Close',
       headerStyle: {
-        backgroundColor: 'rgba(246, 247, 249, 0.08)',
-        borderBottomColor: 'rgba(246, 247, 249, 0.08)',
+        backgroundColor: '#161616',
+        borderBottomColor: '#161616'
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
         color: '#fff',
-        fontWeight: '900',
-      },
-    },
+        fontWeight: '900'
+      }
+    }
+  }
+)
+
+const OnboardingStack = StackNavigator({ Onboarding: { screen: Onboarding } })
+
+const App = SwitchNavigator(
+  {
+    App: { screen: AppStack },
+    Auth: { screen: OnboardingStack },
+    AuthLoading: { screen: AuthLoading }
   },
-);
+  {
+    initialRouteName: 'AuthLoading'
+  }
+)
 
 // Export Root Stack
-export default () => <SnackbarDispatcher><RootStack /></SnackbarDispatcher>;
+export default () => (
+  <SnackbarDispatcher>
+    <App />
+  </SnackbarDispatcher>
+)

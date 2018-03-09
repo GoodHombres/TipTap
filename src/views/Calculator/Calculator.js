@@ -60,7 +60,6 @@ export default class Calculator extends Component {
     try {
       // Get favorite tips
       const selectedTip = JSON.parse(await AsyncStorage.getItem(SELECTED_TIP));
-      console.log(`selectedTip: ${selectedTip}`);
 
       if (selectedTip) {
         // Set selected tip
@@ -117,7 +116,7 @@ export default class Calculator extends Component {
    *
    * @param {string} digit
    */
-  handleKeyPress = (digit) => {
+  handleKeyPress = digit => {
     const { amountEntered } = this.state;
     const maxDigits = 6;
 
@@ -143,9 +142,6 @@ export default class Calculator extends Component {
   handleNavigation = (view, params = null) => {
     const { navigate } = this.props.navigation;
 
-    console.log(`Navigate to ${view}`);
-    console.log(params);
-
     if (!view) return;
 
     navigate(view, params);
@@ -156,7 +152,7 @@ export default class Calculator extends Component {
    *
    * @param {number} tip
    */
-  handleSelectTip = (tip) => {
+  handleSelectTip = tip => {
     this.setState({ selectedTip: tip }, this.storeLastSelectedTip);
   }
 

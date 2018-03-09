@@ -1,10 +1,10 @@
-import React from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
-import styles from './CalculatorQuickView.styles';
+import React from 'react'
+import { SafeAreaView, Text, View } from 'react-native'
+import styles from './CalculatorQuickView.styles'
 
-import USD from './../../utils/convertUSD';
-import calculateTip from './../../utils/calculateTip';
-import calculateTotal from './../../utils/calculateTotal';
+import USD from './../../utils/convertUSD'
+import calculateTip from './../../utils/calculateTip'
+import calculateTotal from './../../utils/calculateTotal'
 
 export default ({ amountEntered, selectedTip }) => (
   <SafeAreaView style={styles.container}>
@@ -15,34 +15,45 @@ export default ({ amountEntered, selectedTip }) => (
     </Text>
     {/* Row */}
     <View style={styles.row}>
-      {/* Tip */}
+      {/* Tip Percent */}
       <View style={styles.stackView}>
         <Text style={styles.label}>Tip</Text>
         <Text
           style={
-            (amountEntered && selectedTip)
+            amountEntered && selectedTip
               ? styles.specialText
               : [styles.specialText, styles.emptyText]
-          }
-        >
+          }>
+          {selectedTip}
+          <Text style={styles.superscript}>%</Text>
+        </Text>
+      </View>
+      {/* Tip */}
+      <View style={styles.stackView}>
+        <Text style={styles.label}>Tip Amount</Text>
+        <Text
+          style={
+            amountEntered && selectedTip
+              ? styles.specialText
+              : [styles.specialText, styles.emptyText]
+          }>
           <Text style={styles.superscript}>$</Text>
-          {calculateTip(amountEntered, selectedTip)}
+          {USD(calculateTip(amountEntered, selectedTip))}
         </Text>
       </View>
       {/* Total */}
       <View style={styles.stackView}>
-        <Text style={styles.label}>Total</Text>
+        <Text style={styles.label}>Total Amount</Text>
         <Text
           style={
-            (amountEntered && selectedTip)
+            amountEntered && selectedTip
               ? styles.specialText
               : [styles.specialText, styles.emptyText]
-          }
-        >
+          }>
           <Text style={styles.superscript}>$</Text>
-          {calculateTotal(amountEntered, selectedTip)}
+          {USD(calculateTotal(amountEntered, selectedTip))}
         </Text>
       </View>
     </View>
   </SafeAreaView>
-);
+)

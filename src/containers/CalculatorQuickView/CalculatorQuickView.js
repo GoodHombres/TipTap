@@ -6,7 +6,7 @@ import USD from './../../utils/convertUSD';
 import calculateTip from './../../utils/calculateTip';
 import calculateTotal from './../../utils/calculateTotal';
 
-export default ({ amountEntered, selectedTip }) => (
+export default ({ amountEntered, selectedTip, splits }) => (
   <SafeAreaView style={styles.container}>
     {/* Amount Entered */}
     <Text style={styles.billText}>
@@ -38,7 +38,7 @@ export default ({ amountEntered, selectedTip }) => (
               : [styles.specialText, styles.emptyText]
           }>
           <Text style={styles.superscript}>$</Text>
-          {USD(calculateTip(amountEntered, selectedTip))}
+          {USD(calculateTip(amountEntered, selectedTip, splits || 1))}
         </Text>
       </View>
       {/* Total */}
@@ -51,7 +51,7 @@ export default ({ amountEntered, selectedTip }) => (
               : [styles.specialText, styles.emptyText]
           }>
           <Text style={styles.superscript}>$</Text>
-          {USD(calculateTotal(amountEntered, selectedTip))}
+          {USD(calculateTotal(amountEntered, selectedTip, splits || 1))}
         </Text>
       </View>
     </View>

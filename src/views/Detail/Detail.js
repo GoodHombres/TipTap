@@ -14,6 +14,7 @@ import BackButton from './../../components/BackButton/BackButton';
 
 import QuickView from './../../containers/CalculatorQuickView/CalculatorQuickView';
 import SnackbarDispatcher from './../../containers/SnackbarDispatcher/SnackbarDispatcher';
+import CheckSplitter from './../../containers/CheckSplitter/CheckSplitter';
 
 import { TIP_LIST, FAVORITE_TIP_LIST } from './../../utils/constants';
 import USD from './../../utils/convertUSD';
@@ -30,6 +31,7 @@ export default class Detail extends Component {
 
   state = {
     tipList: [],
+    splits: 1,
     selectedTip: null
   };
 
@@ -73,7 +75,7 @@ export default class Detail extends Component {
 
   renderTip = tip => {
     const { navigation } = this.props;
-    const { selectedTip } = this.state;
+    const { selectedTip, splits } = this.state;
     const amountEntered = navigation.getParam('amountEntered');
 
     return (
@@ -90,18 +92,22 @@ export default class Detail extends Component {
         </Text>
         <Text style={[styles.itemText, styles.specialText]}>
           <Text style={styles.superscript}>$</Text>
-          {USD(calculateTip(amountEntered, tip))}
+          {USD(calculateTip(amountEntered, tip, splits))}
         </Text>
         <Text style={[styles.itemText, styles.specialText]}>
           <Text style={styles.superscript}>$</Text>
-          {USD(calculateTotal(amountEntered, tip))}
+          {USD(calculateTotal(amountEntered, tip, splits))}
         </Text>
       </ListItem>
     );
   };
 
+  handleOnValueChange = value => {
+    this.setState({ splits: value });
+  };
+
   render() {
-    const { selectedTip, tipList } = this.state;
+    const { selectedTip, tipList, splits } = this.state;
     const { navigation } = this.props;
     const amountEntered = navigation.getParam('amountEntered');
 
@@ -109,7 +115,16 @@ export default class Detail extends Component {
       <SafeAreaView style={styles.container}>
         {/* QuickView */}
         <ScrollView style={styles.scroll}>
-          <QuickView selectedTip={selectedTip} amountEntered={amountEntered} />
+          <QuickView
+            selectedTip={selectedTip}
+            amountEntered={amountEntered}
+            splits={splits}
+          />
+          {/* Tips Splitter */}
+          <CheckSplitter
+            splits={splits}
+            handleOnValueChange={this.handleOnValueChange}
+          />
           <View style={styles.list}>
             {/* Tip List */}
             <FlatList

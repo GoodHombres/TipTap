@@ -1,4 +1,4 @@
-import tip from './calculateTip'
+import tip from './calculateTip';
 
 /**
  * calculateTotal - Calculates total based on tip and amount
@@ -6,9 +6,14 @@ import tip from './calculateTip'
  * @param {number} amount
  * @param {number} tipPct
  */
-export default (amount, tipPct) =>
-  !amount || !tipPct || isNaN(amount) || isNaN(tipPct)
+export default (amount, tipPct, splits) =>
+  !amount ||
+  !tipPct ||
+  !splits ||
+  isNaN(amount) ||
+  isNaN(tipPct) ||
+  isNaN(splits)
     ? // If not valid amount or tip percentage, return default value
       0
     : // Otherwise return total
-      amount + tip(amount, tipPct)
+      amount / splits + tip(amount, tipPct, splits);

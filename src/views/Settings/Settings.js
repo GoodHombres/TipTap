@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   ScrollView,
   Text,
-  View
+  View,
 } from 'react-native';
 
 import Icon from './../../components/Icon/Icon';
@@ -16,7 +16,6 @@ import Button from './../../components/Button/Button';
 import ListItem from './../../components/ListItem/ListItem';
 import StackView from './../../components/StackView/StackView';
 import InputLabel from './../../components/InputLabel/InputLabel';
-import BackButton from './../../components/BackButton/BackButton';
 import ListItemActions from './../../components/ListItemActions/ListItemActions';
 import SnackbarDispatcher from './../../containers/SnackbarDispatcher/SnackbarDispatcher';
 
@@ -25,7 +24,7 @@ import {
   TIP_LIST,
   FAVORITE_TIP_LIST,
   FINISHED_ONBOARDING,
-  SELECTED_TIP
+  SELECTED_TIP,
 } from './../../utils/constants';
 
 import styles from './Settings.styles';
@@ -33,20 +32,19 @@ import styles from './Settings.styles';
 // Set input type based on Platform
 const tipInputType = Platform.select({
   android: 'numeric',
-  ios: 'number-pad'
+  ios: 'number-pad',
 });
 
 export default class Settings extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: 'Settings',
-    headerLeft: <BackButton navigation={navigation} />
   });
 
   state = {
     tip: null,
     tipList: [],
     favoriteTips: [],
-    validTipInput: false
+    validTipInput: false,
   };
 
   componentDidMount() {
@@ -83,7 +81,7 @@ export default class Settings extends Component {
       // Set items
       await AsyncStorage.multiSet([
         [TIP_LIST, JSON.stringify(tipList)],
-        [FAVORITE_TIP_LIST, JSON.stringify(favoriteTips)]
+        [FAVORITE_TIP_LIST, JSON.stringify(favoriteTips)],
       ]);
     } catch (e) {
       console.warn(e);
@@ -134,7 +132,7 @@ export default class Settings extends Component {
         TIP_LIST,
         FAVORITE_TIP_LIST,
         FINISHED_ONBOARDING,
-        SELECTED_TIP
+        SELECTED_TIP,
       ]);
 
       // Go to onboarding page
@@ -157,8 +155,8 @@ export default class Settings extends Component {
         {
           text: 'Reset',
           onPress: () => this.resetStore(),
-          style: 'destructive'
-        }
+          style: 'destructive',
+        },
       ]
     );
   };
@@ -332,7 +330,7 @@ export default class Settings extends Component {
     // Validate
     this.setState({
       tip: validTipInput ? parseInt(text, 10) : null,
-      validTipInput
+      validTipInput,
     });
   };
 
@@ -486,6 +484,12 @@ export default class Settings extends Component {
           <Button style={styles.danger} handleOnPress={this.handleResetApp}>
             <Text style={styles.dangerText}>Reset</Text>
           </Button>
+
+          <View style={styles.footer}>
+            <Text style={styles.footerText}>
+              TipTap by Erick Sauri & Christian Medina
+            </Text>
+          </View>
         </ScrollView>
       </SafeAreaView>
     );

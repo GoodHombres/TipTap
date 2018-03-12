@@ -3,7 +3,14 @@ import { TextInput } from 'react-native';
 
 import styles from './Input.styles';
 
-export default ({ keyboardType, maxLength, placeholder, onChangeText, onSubmitEditing, value }) => (
+export default ({
+  keyboardType,
+  maxLength,
+  placeholder,
+  onChangeText,
+  onSubmitEditing,
+  value,
+}) => (
   <TextInput
     style={styles.input}
     keyboardType={keyboardType}
@@ -13,6 +20,7 @@ export default ({ keyboardType, maxLength, placeholder, onChangeText, onSubmitEd
     onChangeText={onChangeText}
     onSubmitEditing={onSubmitEditing}
     value={value}
+    underlineColorAndroid={'rgba(0, 0, 0, 0)'}
     returnKeyType={'go'}
   />
 );

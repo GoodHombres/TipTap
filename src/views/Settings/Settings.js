@@ -451,7 +451,7 @@ export default class Settings extends Component {
           </ListItem>
           {/* Tip Hint */}
           {tip && (
-            <Text style={styles.inputHint}>Must be a three-digit number</Text>
+            <Text style={styles.inputHint}>Tip percentage can be at most three-digits long.</Text>
           )}
           {/* Favorite List */}
           <Text style={styles.title}>Favorite Tips</Text>

@@ -5,34 +5,32 @@ import {
   SafeAreaView,
   ScrollView,
   Text,
-  View
+  View,
 } from 'react-native';
 
 import Button from './../../components/Button/Button';
 import ListItem from './../../components/ListItem/ListItem';
-import BackButton from './../../components/BackButton/BackButton';
 
 import QuickView from './../../containers/CalculatorQuickView/CalculatorQuickView';
 import SnackbarDispatcher from './../../containers/SnackbarDispatcher/SnackbarDispatcher';
 import CheckSplitter from './../../containers/CheckSplitter/CheckSplitter';
 
-import { TIP_LIST, FAVORITE_TIP_LIST } from './../../utils/constants';
 import USD from './../../utils/convertUSD';
 import calculateTip from './../../utils/calculateTip';
 import calculateTotal from './../../utils/calculateTotal';
+import { TIP_LIST, FAVORITE_TIP_LIST } from './../../utils/constants';
 
 import styles from './Detail.styles';
 
 export default class Detail extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: `Bill: $${USD(navigation.getParam('amountEntered'))}`,
-    headerLeft: <BackButton navigation={navigation} />
   });
 
   state = {
     tipList: [],
     splits: 1,
-    selectedTip: null
+    selectedTip: null,
   };
 
   componentDidMount() {
@@ -77,24 +75,24 @@ export default class Detail extends Component {
     const { navigation } = this.props;
     const { selectedTip, splits } = this.state;
     const amountEntered = navigation.getParam('amountEntered');
+    const textClass =
+      selectedTip === tip
+        ? [styles.itemText, styles.specialText]
+        : styles.itemText;
 
     return (
       <ListItem
-        style={
-          selectedTip === tip
-            ? [styles.listItem, styles.selectedListItem]
-            : [styles.listItem]
-        }
+        style={[styles.listItem]}
         handleOnPress={() => this.setSelectedTip(tip)}>
-        <Text style={styles.itemText}>
+        <Text style={textClass}>
           {tip}
           <Text style={styles.superscript}>%</Text>
         </Text>
-        <Text style={[styles.itemText, styles.specialText]}>
+        <Text style={textClass}>
           <Text style={styles.superscript}>$</Text>
           {USD(calculateTip(amountEntered, tip, splits))}
         </Text>
-        <Text style={[styles.itemText, styles.specialText]}>
+        <Text style={textClass}>
           <Text style={styles.superscript}>$</Text>
           {USD(calculateTotal(amountEntered, tip, splits))}
         </Text>

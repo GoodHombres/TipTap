@@ -21,7 +21,7 @@ const AppStack = StackNavigator(
   {
     Calculator: { screen: Calculator },
     Settings: { screen: Settings },
-    Detail: { screen: Detail }
+    Detail: { screen: Detail },
   },
   // Stack Config
   {
@@ -32,14 +32,15 @@ const AppStack = StackNavigator(
       headerBackTitle: 'Close',
       headerStyle: {
         backgroundColor: '#161616',
-        borderBottomColor: '#161616'
+        borderBottomColor: '#161616',
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
         color: '#fff',
-        fontWeight: '900'
-      }
-    }
+        fontWeight: '900',
+        textAlign: 'center',
+      },
+    },
   }
 );
 
@@ -49,10 +50,10 @@ const App = SwitchNavigator(
   {
     App: { screen: AppStack },
     Auth: { screen: OnboardingStack },
-    AuthLoading: { screen: AuthLoading }
+    AuthLoading: { screen: AuthLoading },
   },
   {
-    initialRouteName: 'AuthLoading'
+    initialRouteName: 'AuthLoading',
   }
 );
 

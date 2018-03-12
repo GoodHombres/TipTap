@@ -1,4 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
+
+const superscriptSize = Platform.select({
+  android: 24,
+  ios: 10,
+});
+
+const superscriptLargeSize = Platform.select({
+  android: 64,
+  ios: 32,
+});
 
 export default StyleSheet.create({
   container: {
@@ -41,13 +51,13 @@ export default StyleSheet.create({
     marginTop: 5,
   },
   superscript: {
-    color: '#fff',
+    color: '#4cd964',
     lineHeight: 28,
-    fontSize: 10,
+    fontSize: superscriptSize,
   },
   superscriptBig: {
     color: '#fff',
     lineHeight: 68,
-    fontSize: 32,
+    fontSize: superscriptLargeSize,
   },
 });

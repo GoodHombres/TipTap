@@ -27,6 +27,7 @@
   "dependencies": {
     "react": "16.2.0",
     "react-native": "0.53.3",
+    "react-native-swiper": "^1.5.13",
     "react-navigation": "^1.5.0"
   },
   "devDependencies": {
@@ -53,7 +54,7 @@
   },
   "prettier": {
     "jsxBracketSameLine": true,
-    "semi": true,
+    "trailingComma": "es5",
     "singleQuote": true
   }
 }

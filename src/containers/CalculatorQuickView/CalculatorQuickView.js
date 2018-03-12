@@ -25,7 +25,14 @@ export default ({ amountEntered, selectedTip, splits }) => (
               : [styles.specialText, styles.emptyText]
           }>
           {selectedTip || '0'}
-          <Text style={styles.superscript}>%</Text>
+          <Text
+            style={
+              amountEntered && selectedTip
+                ? styles.superscript
+                : [styles.superscript, styles.emptyText]
+            }>
+            %
+          </Text>
         </Text>
       </View>
       {/* Tip */}
@@ -37,7 +44,14 @@ export default ({ amountEntered, selectedTip, splits }) => (
               ? styles.specialText
               : [styles.specialText, styles.emptyText]
           }>
-          <Text style={styles.superscript}>$</Text>
+          <Text
+            style={
+              amountEntered && selectedTip
+                ? styles.superscript
+                : [styles.superscript, styles.emptyText]
+            }>
+            $
+          </Text>
           {USD(calculateTip(amountEntered, selectedTip, splits || 1))}
         </Text>
       </View>
@@ -50,7 +64,14 @@ export default ({ amountEntered, selectedTip, splits }) => (
               ? styles.specialText
               : [styles.specialText, styles.emptyText]
           }>
-          <Text style={styles.superscript}>$</Text>
+          <Text
+            style={
+              amountEntered && selectedTip
+                ? styles.superscript
+                : [styles.superscript, styles.emptyText]
+            }>
+            $
+          </Text>
           {USD(calculateTotal(amountEntered, selectedTip, splits || 1))}
         </Text>
       </View>

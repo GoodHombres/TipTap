@@ -14,7 +14,7 @@ export default ({ splits, handleOnValueChange }) => (
         <Text style={[styles.label, styles.green]}>{splits || 1}</Text>
       </View>
       <Slider
-        value={1}
+        value={splits}
         step={1}
         minimumValue={1}
         maximumValue={12}

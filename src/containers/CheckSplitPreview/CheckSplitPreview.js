@@ -19,6 +19,16 @@ export default class CheckSplitPreview extends Component {
     tipList: [10, 15, 18, 20],
   };
 
+  componentDidMount() {
+    setInterval(() => {
+      const { people } = this.state;
+      const splits = people + 1;
+      this.setState({
+        people: splits,
+      });
+    }, 3000);
+  }
+
   handleOnValueChange = value => {
     this.setState({ people: value });
   };

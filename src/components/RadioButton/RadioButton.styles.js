@@ -11,8 +11,13 @@ export default StyleSheet.create({
     backgroundColor: '#4cd964',
     opacity: 1,
   },
-  text: {
+  defaultText: {
     color: '#fff',
+  },
+  selectedText: {
+    color: '#020202',
+  },
+  text: {
     fontSize: 18,
     flexDirection: 'row',
     alignItems: 'flex-start',

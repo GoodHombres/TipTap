@@ -21,7 +21,6 @@ export default StyleSheet.create({
     paddingBottom: 20,
   },
   superscript: {
-    color: '#fff',
     lineHeight: 20,
     marginLeft: 4,
     fontSize: superscriptSize,

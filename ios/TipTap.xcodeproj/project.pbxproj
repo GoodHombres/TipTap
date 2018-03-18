@@ -1216,6 +1216,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ericksauri.TipTap;
 				PRODUCT_NAME = TipTap;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1234,6 +1235,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ericksauri.TipTap;
 				PRODUCT_NAME = TipTap;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -20,7 +20,6 @@ type Props = {
 };
 
 const Onboarding = (props: Props) => {
-  console.log(props);
   const handleOnPress = () => {
     const { navigate } = props.navigation;
     navigate(Route.App);

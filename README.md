@@ -1,51 +1,64 @@
-# :space_invader: React Native Template TypeScript
+# TipTap
+## Get Started
 
-<p>
-  <a href="https://travis-ci.org/react-native-community/react-native-template-typescript">
-    <img alt="Build Status" src="https://img.shields.io/travis/react-native-community/react-native-template-typescript.svg" target="_blank" />
-  </a>
-  <a href="https://github.com/react-native-community/react-native-template-typescript#readme">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
-  </a>
-  <a href="https://github.com/react-native-community/react-native-template-typescript/graphs/commit-activity">
-    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" target="_blank" />
-  </a>
-  <a href="https://github.com/react-native-community/react-native-template-typescript/blob/master/LICENSE">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
-  </a>
-</p>
+The following software is required to be installed on your machine in order to launch the Patch Mobile App:
 
-> Clean and minimalist React Native template for a quick start with TypeScript.
+- [nvm](https://github.com/nvm-sh/nvm): Node Version Manager
+  - This will help you manage and install versions of `node` and `npm`
+- [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12): useful for doing native ios development
+- [Android Studio](https://developer.android.com/studio): useful for doing native android development
+- [CocoaPods](https://cocoapods.org/): iOS dependency manager
 
-## :star: Features
+### Install npm dependencies
 
-- Elegant usage directly within the [React Native CLI](https://github.com/react-native-community/cli)
-- Consistent with the default React Native template
-- Minimal additional dependencies
+Sync node version via nvm
 
-## :arrow_forward: Usage
-
-### Note on the legacy CLI
-There seems to be quite some confusion about the legacy CLI. This template only works with the new CLI. Make sure you have uninstalled the legacy `react-native-cli` first (`npm uninstall -g react-native-cli`), for the below command to work. If you wish to not use `npx`, you can also install the new CLI globally (`npm i -g @react-native-community/cli` or `yarn global add @react-native-community/cli`).
-
-Further information can be found here: https://github.com/react-native-community/cli#about
-
-### `react-native@0.61.0` or higher
-
-```sh
-npx react-native init MyApp --template react-native-template-typescript
+```bash
+nvm use
 ```
 
-### `react-native@0.60.x`
+Install **node_modules** dependencies
 
-```sh
-npx react-native init MyApp --template react-native-template-typescript@6.2.0
+```bash
+npm install
 ```
 
-## :computer: Contributing
+### Launch application
 
-Contributions are very welcome. Please check out the [contributing document](CONTRIBUTING.md).
+Clear watchman cache and start metro bundles
 
-## :bookmark: License
+```bash
+watchman watch-del-all && npx react-native start --reset-cache
+```
 
-This project is [MIT](LICENSE) licensed.
+#### Launching application in iOS simulator
+
+```bash
+npx react-native run-ios --simulator "iPhone 11 Pro Max"
+```
+
+_Note: Current xcode requires an explicit target device to launch. You can swap the device out for others, such as_ `"iPhone SE"` _or_ `"iPad Pro"`
+
+#### Launching application on Android Device and Simulator (depending on what is available)
+
+```bash
+npx react-native run-android
+```
+### Troubleshooting
+
+> Possible solutions if you are unable to launch app
+
+Refresh node_modules:
+
+`rm -rf node_modules && npm install`
+
+Clear watchman and react native cache:
+
+`watchman watch-del-all && npx react-native start --reset-cache`
+
+Reinstall Cocoapods (iOS):
+
+`cd ios && pod deintegrate && pod install && cd ..`
+
+Clear Android build folder:
+`cd android/app && rm -r build`

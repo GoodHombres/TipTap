@@ -9,7 +9,7 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
+import { SafeAreaView, StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 import {
   Header,
@@ -19,7 +19,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-declare var global: {HermesInternal: null | {}};
+declare var global: { HermesInternal: null | {} };
 
 const StyledScrollView = styled.ScrollView`
   background-color: ${Colors.lighter};

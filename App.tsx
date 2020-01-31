@@ -9,15 +9,8 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
+import {SafeAreaView, StatusBar} from 'react-native';
+import styled from 'styled-components/native';
 import {
   Header,
   LearnMoreLinks,
@@ -28,91 +21,94 @@ import {
 
 declare var global: {HermesInternal: null | {}};
 
+const StyledScrollView = styled.ScrollView`
+  background-color: ${Colors.lighter};
+`;
+
+const StyledBody = styled.View`
+  background-color: ${Colors.white};
+`;
+
+const StyledEngine = styled.View`
+  position: absolute;
+  right: 0;
+`;
+
+const StyledFooter = styled.Text`
+  color: ${Colors.dark};
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px;
+  padding-right: 12px;
+  text-align: right;
+`;
+
+const StyledSectionContainer = styled.View`
+  margin-top: 32px;
+  padding-horizontal: 24px;
+`;
+
+const StyledSectionTitle = styled.Text`
+  font-size: 24px;
+  font-weight: 600;
+  color: ${Colors.black};
+`;
+
+const StyledSectionDescription = styled.Text`
+  margin-top: 8px;
+  font-size: 18px;
+  font-weight: 400;
+  color: ${Colors.dark};
+`;
+
+const StyledHighlight = styled.Text`
+  font-weight: 700;
+`;
+
 const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
+        <StyledScrollView contentInsetAdjustmentBehavior="automatic">
           <Header />
           {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
+            <StyledEngine>
+              <StyledFooter>Engine: Hermes</StyledFooter>
+            </StyledEngine>
           )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change
-                this screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
+          <StyledBody>
+            <StyledSectionContainer>
+              <StyledSectionTitle>Step One</StyledSectionTitle>
+              <StyledSectionDescription>
+                Edit <StyledHighlight>App.tsx</StyledHighlight> to change this
+                screen and then come back to see your edits.
+              </StyledSectionDescription>
+            </StyledSectionContainer>
+            <StyledSectionContainer>
+              <StyledSectionTitle>See Your Changes</StyledSectionTitle>
+              <StyledSectionDescription>
                 <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
+              </StyledSectionDescription>
+            </StyledSectionContainer>
+            <StyledSectionContainer>
+              <StyledSectionTitle>Debug</StyledSectionTitle>
+              <StyledSectionDescription>
                 <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
+              </StyledSectionDescription>
+            </StyledSectionContainer>
+            <StyledSectionContainer>
+              <StyledSectionTitle>Learn More</StyledSectionTitle>
+              <StyledSectionDescription>
                 Read the docs to discover what to do next:
-              </Text>
-            </View>
+              </StyledSectionDescription>
+            </StyledSectionContainer>
             <LearnMoreLinks />
-          </View>
-        </ScrollView>
+          </StyledBody>
+        </StyledScrollView>
       </SafeAreaView>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;

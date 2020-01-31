@@ -1,9 +1,0 @@
-{
-  "extends": [
-    "standard",
-    "prettier",
-    "prettier/flowtype",
-    "prettier/react",
-    "prettier/standard"
-  ]
-}

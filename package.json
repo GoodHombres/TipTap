@@ -1,60 +1,29 @@
 {
   "name": "TipTap",
   "version": "0.0.1",
-  "author": {
-    "name": "Erick Sauri",
-    "email": "ericksaurisyl@gmail.com",
-    "url": "https://ericksauri.com"
-  },
-  "contributors": [
-    "Christian Medina"
-  ],
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "erick": "react-native run-ios --device 'Erick'",
-    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
-    "iphoneSE": "react-native run-ios --simulator='iPhone SE'",
-    "iphone7": "react-native run-ios --simulator='iPhone 7'",
-    "iphoneX": "react-native run-ios --simulator='iPhone X'",
-    "ipadAir": "react-native run-ios --simulator='iPad Air'",
     "ios": "react-native run-ios",
-    "precommit": "lint-staged",
-    "prettier": "prettier 'src/**/*.js'",
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "react": "16.2.0",
-    "react-native": "0.53.3",
-    "react-native-swiper": "^1.5.13",
-    "react-navigation": "^1.5.0"
+    "react": "16.9.0",
+    "react-native": "0.61.5"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.2",
-    "babel-jest": "22.4.1",
-    "babel-preset-react-native": "4.0.0",
-    "eslint": "^4.18.2",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.0",
-    "husky": "^0.14.3",
-    "jest": "22.4.2",
-    "lint-staged": "^7.0.0",
-    "prettier": "^1.11.1",
-    "react-test-renderer": "16.2.0"
+    "@babel/core": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
+    "@react-native-community/eslint-config": "^0.0.7",
+    "babel-jest": "^25.1.0",
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "metro-react-native-babel-preset": "^0.58.0",
+    "react-test-renderer": "16.9.0"
   },
   "jest": {
     "preset": "react-native"
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "prettier": {
-    "jsxBracketSameLine": true,
-    "trailingComma": "es5",
-    "singleQuote": true
   }
 }

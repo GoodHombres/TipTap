@@ -1,4 +1,31 @@
 {
-  "name": "TipTap",
-  "displayName": "TipTap"
+  "expo": {
+    "name": "Tiptap",
+    "slug": "TipTap",
+    "owner": "esauri",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#020202"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon-android.png",
+        "backgroundColor": "#020202"
+      }
+    },
+    "web": {
+      "favicon": "./assets/icon.png"
+    }
+  }
 }

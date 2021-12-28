@@ -1,15 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import useAuthMethods from '../../auth/lib/useAuthMethods';
+import useOnboardingMethods from '../lib/useOnboardingMethods';
 
 export default function OnboardingScreen() {
-  const { completeOnboarding } = useAuthMethods();
+  const { complete } = useOnboardingMethods();
 
   return (
     <View style={styles.container}>
       <Text>This is the Onboarding View</Text>
       <StatusBar style="auto" />
-      <Button title="Finish" onPress={() => completeOnboarding()} />
+      <Button title="Finish" onPress={() => complete()} />
     </View>
   );
 }

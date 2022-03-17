@@ -1,8 +1,8 @@
-import useAuthState from '../../auth/lib/useAuthState';
-import { OnboardingStatus } from './onboardingStatus';
+import useStore from '../../common/lib/store';
+import { OnboardingStatus } from './onboardingSlice';
 
 const useOnboardingStatus = (): OnboardingStatus => {
-  const { onboardingStatus } = useAuthState();
+  const onboardingStatus = useStore((state) => state.onboardingStatus);
 
   return onboardingStatus;
 };

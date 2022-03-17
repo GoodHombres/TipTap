@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export enum Routes {
   Bill = 'Bill',
@@ -21,6 +22,19 @@ export type CalculatorScreenProps = NativeStackScreenProps<
   Routes.Calculator
 >;
 export type SettingsScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  Routes.Settings
+>;
+
+export type BillNavigationProps = NativeStackNavigationProp<
+  RootStackParamList,
+  Routes.Bill
+>;
+export type CalculatorNavigationProps = NativeStackNavigationProp<
+  RootStackParamList,
+  Routes.Calculator
+>;
+export type SettingsNavigationProps = NativeStackNavigationProp<
   RootStackParamList,
   Routes.Settings
 >;

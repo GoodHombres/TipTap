@@ -1,15 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import useAuthMethods from '../../auth/lib/useAuthMethods';
+import useOnboardingMethods from '../../onboarding/lib/useOnboardingMethods';
 
 export default function SettingsScreen() {
-  const { resetOnboarding } = useAuthMethods();
+  const { reset } = useOnboardingMethods();
 
   return (
     <View style={styles.container}>
       <Text>This is the Settings View</Text>
       <StatusBar style="auto" />
-      <Button title="Reset" onPress={() => resetOnboarding()} />
+      <Button title="Reset" onPress={() => reset()} />
     </View>
   );
 }

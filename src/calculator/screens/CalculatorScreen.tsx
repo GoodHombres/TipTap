@@ -1,26 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, Text } from 'react-native';
 import { CalculatorScreenProps, Routes } from '../../common/lib/routes';
+import Container from '../components/Container';
+import Header from '../components/Header';
 
 const CalculatorScreen = ({ navigation }: CalculatorScreenProps) => {
   const { navigate } = navigation;
 
   return (
-    <View style={styles.container}>
+    <Container>
+      <StatusBar style="dark" />
+      <Header showSettingsMenu />
       <Text>This is the Calculator View</Text>
-      <StatusBar style="auto" />
       <Button title="Open Settings" onPress={() => navigate(Routes.Settings)} />
-    </View>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default CalculatorScreen;

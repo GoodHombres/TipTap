@@ -30,7 +30,7 @@ export function Typography({
   return (
     <Text
       className={cn([
-        "text-foreground font-sans",
+        "font-sans text-foreground",
         VariantClasses[variant],
         className,
       ])}

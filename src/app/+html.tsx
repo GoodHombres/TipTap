@@ -25,7 +25,7 @@ export default function Root({ children }: PropsWithChildren) {
 
         {/* Add any additional <head> elements that you want globally available on web... */}
       </head>
-      <body className="antialiased bg-background text-foreground font-sans">
+      <body className="bg-background font-sans text-foreground antialiased">
         {children}
       </body>
     </html>

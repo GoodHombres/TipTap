@@ -1,64 +1,50 @@
-# TipTap
-## Get Started
+# Tiptap
 
-The following software is required to be installed on your machine in order to launch the Patch Mobile App:
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-- [nvm](https://github.com/nvm-sh/nvm): Node Version Manager
-  - This will help you manage and install versions of `node` and `npm`
-- [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12): useful for doing native ios development
-- [Android Studio](https://developer.android.com/studio): useful for doing native android development
-- [CocoaPods](https://cocoapods.org/): iOS dependency manager
+## Get started
 
-### Install npm dependencies
+1. Install dependencies
 
-Sync node version via nvm
+   ```bash
+   npm install
+   ```
 
-```bash
-nvm use
-```
+2. Start the app
 
-Install **node_modules** dependencies
+   ```bash
+    npx expo start
+   ```
 
-```bash
-npm install
-```
+In the output, you'll find options to open the app in a
 
-### Launch application
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-Clear watchman cache and start metro bundles
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-```bash
-watchman watch-del-all && npx react-native start --reset-cache
-```
+## Get a fresh project
 
-#### Launching application in iOS simulator
+When you're ready, run:
 
 ```bash
-npx react-native run-ios --simulator "iPhone 11 Pro Max"
+npm run reset-project
 ```
 
-_Note: Current xcode requires an explicit target device to launch. You can swap the device out for others, such as_ `"iPhone SE"` _or_ `"iPad Pro"`
+This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
-#### Launching application on Android Device and Simulator (depending on what is available)
+## Learn more
 
-```bash
-npx react-native run-android
-```
-### Troubleshooting
+To learn more about developing your project with Expo, look at the following resources:
 
-> Possible solutions if you are unable to launch app
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-Refresh node_modules:
+## Join the community
 
-`rm -rf node_modules && npm install`
+Join our community of developers creating universal apps.
 
-Clear watchman and react native cache:
-
-`watchman watch-del-all && npx react-native start --reset-cache`
-
-Reinstall Cocoapods (iOS):
-
-`cd ios && pod deintegrate && pod install && cd ..`
-
-Clear Android build folder:
-`cd android/app && rm -r build`
+- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.

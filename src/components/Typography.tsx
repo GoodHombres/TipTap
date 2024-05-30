@@ -9,17 +9,17 @@ const Variant = {
   subtitle: "subtitle",
 } as const;
 
-type Variant = ObjectValues<typeof Variant>;
+type VariantType = ObjectValues<typeof Variant>;
 
 const VariantClasses = {
   [Variant.body]: "text-base leading-[24px]",
   [Variant.link]: "text-base leading-[30px] text-primary",
   [Variant.title]: "text-2xl font-bold leading-[32px]",
   [Variant.subtitle]: "text-xl font-bold",
-} satisfies Record<Variant, string>;
+} satisfies Record<VariantType, string>;
 
 export type Props = TextProps & {
-  variant?: Variant;
+  variant?: VariantType;
 };
 
 export function Typography({

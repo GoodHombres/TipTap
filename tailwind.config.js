@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 /**
  * @NOTE keep in sync with constants/Colors.ts
  */
